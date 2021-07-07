@@ -115,14 +115,31 @@ const getConfigs = async () => {
 	const localVersions = getLocalVersions();
 
 	const kitData = await getKitData();
+	const sections = {
+		heading: {
+			name: "Title/heading",
+			order: 0,
+			is_active: true
+		},
+		market_list: {
+			name: "Market list",
+			order: 1,
+			is_active: true
+		},
+		quick_trade: {
+			name: "Quick trade calculator",
+			order: 2,
+			is_active: false
+		}
+	}
 	const {
-		meta: { versions: remoteVersions = {}, sections = {} } = {},
+		meta: { versions: remoteVersions = {} } = {},
 		valid_languages = '',
 		info: { initialized },
 		setup_completed,
 		native_currency,
 		logo_image,
-		features: { home_page = false } = {},
+		features: { home_page = true } = {},
 		injected_values = [],
 		injected_html = {},
 	} = kitData;
