@@ -210,7 +210,7 @@ const nestedContent = {
 	},
 	FORM_FIELDS: {
 		EMAIL_LABEL: 'Email',
-		EMAIL_PLACEHOLDER: 'Type your Email address 2',
+		EMAIL_PLACEHOLDER: 'Type your Email address',
 		PASSWORD_LABEL: 'Password',
 		PASSWORD_PLACEHOLDER: 'Type your password',
 		PASSWORD_REPEAT_LABEL: 'Retype your password',
