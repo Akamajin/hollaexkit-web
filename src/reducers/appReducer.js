@@ -311,12 +311,6 @@ const reducer = (state = INITIAL_STATE, { type, payload = {} }) => {
 				...state,
 				language: payload.language,
 			};
-
-		case CHANGE_THEME:
-			return {
-				...state,
-				theme: getTheme(payload.theme),
-			};
 		case SET_TICKERS:
 			return {
 				...state,

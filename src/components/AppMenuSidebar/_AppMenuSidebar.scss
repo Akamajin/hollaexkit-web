@@ -16,45 +16,29 @@
 	.app-menu-bar-side {
 		background-color: $app-sidebar-background;
 		border-right: 1px solid $colors-border;
-
-		padding: 20px 16px 0 15px;
 		.app-menu-bar-icon {
 			width: 20px;
 		}
 	}
 	.app-menu-bar-side_list {
-		height: 60px;
-		padding: 18px 17px;
+		height: 50px;
+		padding: 13px 17px;
 		cursor: pointer;
 		color: $colors-black !important;
-
+		transition: 0.2s all;
 		.side-bar-txt {
 			height: 24px;
 			margin: 0 0 0 14px;
-			font-size: 16px;
+			font-size: 14px;
+			transition: 0.2s all;
 		}
 	}
 	.list_active,
 	.app-menu-bar-side_list:hover {
-		border-radius: 4px;
-		background-color: $colors-border-hover;
-		.side-bar-txt {
-			color: $base_top-bar-navigation_text !important;
-		}
-		.tab-summary0,
-		.tab-wallet0,
-		.tab-security0,
-		.tab-history0,
-		.tab-verify0,
-		.tab-setting0,
-		.help-question,
-		.tab-signout,
-		.tab-history-st {
-			fill: $base_top-bar-navigation_text !important;
-		}
+		background-color: #f5f5f5;
 	}
 	.list_active {
-		background-color: $colors-border !important;
+		background-color: #f5f5f5 !important;
 	}
 }
 

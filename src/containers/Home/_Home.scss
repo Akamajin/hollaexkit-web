@@ -145,13 +145,15 @@ $trade-tab--arrow-size: 0.4rem;
 	background-size: cover;
 
 	.main-section_button_invert {
-		color: $link !important;
-		background-color: $colors-main-black !important;
+		color: #fff;
+		background-color: #12161c !important;
+		border-radius: 5px;
 	}
 
 	.main-section_button {
 		color: $colors-main-black !important;
-		background-color: $link !important;
+		background-color: $theme-color-1 !important;
+		border-radius: 5px;
 	}
 
 	.quick_trade-wrapper {
@@ -344,7 +346,6 @@ $trade-tab--arrow-size: 0.4rem;
 
 	.app_bar-icon {
 		flex: 0;
-		margin: 0 0.5rem;
 		padding-right: 8px;
 		width: 100%;
 	}
@@ -385,13 +386,9 @@ $trade-tab--arrow-size: 0.4rem;
 			height: 3rem;
 			width: 5rem;
 		}
-
-		.app_bar-icon {
-			margin: 1rem 0 1rem;
-		}
 	}
 }
 
 .wide-logo {
-	width: 10rem !important;
+	width: 150px !important;
 }

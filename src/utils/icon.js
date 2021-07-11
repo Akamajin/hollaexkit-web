@@ -58,7 +58,8 @@ export const generateAllIcons = (themes, icons, coin_icons = {}) => {
 			}
 		});
 	});
-
+	allIcons.white.EXCHANGE_LOGO = '/assets/logo/logo.svg'
+	allIcons.white.EXCHANGE_LOADER = '/assets/loader.gif'
 	return allIcons;
 };
 

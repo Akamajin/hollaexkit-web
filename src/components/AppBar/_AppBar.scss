@@ -27,8 +27,8 @@ $app-menu-notification-size: 1.2rem;
 	}
 
 	.app_bar-icon-logo {
-		height: 4rem;
-		width: 5rem;
+		height: auto;
+		width: 164px;
 		background-size: contain;
 		background-position: left center;
 		background-repeat: no-repeat;
@@ -36,7 +36,6 @@ $app-menu-notification-size: 1.2rem;
 
 	.app_bar-icon {
 		flex: 0;
-		margin: 0 0.5rem;
 		padding-right: 8px;
 		width: 100%;
 	}
@@ -244,7 +243,9 @@ $app-menu-notification-size: 1.2rem;
 			stroke-width: 0rem;
 		}
 	}
-
+	.app-bar-account-icon.mr-3 svg {
+		margin-top: 5px;
+	}
 	.account-inactive {
 		.app-bar-account-icon svg {
 			.st0 {
@@ -494,6 +495,12 @@ $app-menu-notification-size: 1.2rem;
 	}
 }
 
+.home_app_bar, .app_bar {
+	background-color: #12161c;
+    color: #fff;
+    padding: 0 17px;
+}
+
 .select-option-wrapper {
 	.ant-select-item,
 	.ant-select-item-option {
@@ -502,7 +509,7 @@ $app-menu-notification-size: 1.2rem;
 }
 
 .app-bar-tab-menu {
-	background-color: $app-bar-background-color !important;
+	background-color: #dedede;
 }
 
 .app_bar-mobile {
@@ -564,7 +571,7 @@ $app-menu-notification-size: 1.2rem;
 	// min-height: $navigation_bar-height;
 	position: relative;
 	width: 100%;
-
+	margin: auto;
 	.app-menu-bar-content {
 		color: $base_top-bar-navigation_text-inactive;
 		cursor: pointer;
@@ -575,6 +582,11 @@ $app-menu-notification-size: 1.2rem;
 		display: flex;
 		align-items: center;
 		border-top: 3px solid transparent;
+		transition: 0.3s all;
+		&:hover {
+			color: #fff;
+			opacity: 1;
+		}
 	}
 
 	.app-menu-bar-content-item {
@@ -974,7 +986,7 @@ $app-menu-notification-size: 1.2rem;
 	box-shadow: 0px 4px 6px 1px rgba(0, 0, 0, 0.4);
 
 	.app-bar-tab-menu-list {
-		background-color: $app-bar-background-color;
+		background-color: #dedede;
 		color: $app-bar-menu-list-color;
 		font-size: 0.9rem;
 		height: 2.5rem;
@@ -1129,16 +1141,8 @@ $app-menu-notification-size: 1.2rem;
 		.app_bar-pair-font {
 			font-size: 1rem;
 		}
-
-		.app_bar-icon-logo {
-			height: 3rem;
-			width: 5rem;
-		}
 		.app-bar-tab-close {
 			width: 1.1rem;
-		}
-		.app_bar-icon {
-			margin: 1rem 0 1rem;
 		}
 	}
 	.market-bar {

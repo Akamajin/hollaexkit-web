@@ -182,8 +182,8 @@ class AppBar extends Component {
 		} = this.props;
 		const { securityPending, verificationPending, walletPending } = this.state;
 
-		const { selected } = this.state;
-		const { themeOptions } = this.props;
+		//const { selected } = this.state;
+		//const { themeOptions } = this.props;
 		return isMobile ? (
 			<MobileBarWrapper
 				className={classnames(
@@ -217,11 +217,11 @@ class AppBar extends Component {
 				{children}
 				{!isLoggedIn() && (
 					<div id="trade-nav-container">
-						<ThemeSwitcher
+						{/*<ThemeSwitcher
 							selected={selected}
 							options={themeOptions}
 							toggle={this.onToggle}
-						/>
+						/>*/}
 						<div
 							className="login-container"
 							onClick={() => router.push('/login')}
@@ -236,11 +236,11 @@ class AppBar extends Component {
 						className="d-flex app-bar-account justify-content-end"
 					>
 						<div className="d-flex app_bar-quicktrade-container">
-							<ThemeSwitcher
+							{/*<ThemeSwitcher
 								selected={selected}
 								options={themeOptions}
 								toggle={this.onToggle}
-							/>
+							/>*/}
 						</div>
 						<AnnouncementList user={user.email} />
 						<MenuList

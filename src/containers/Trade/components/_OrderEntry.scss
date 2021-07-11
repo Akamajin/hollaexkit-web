@@ -45,6 +45,7 @@
 
 	.trade_order_entry-action_selector {
 		border: 1px solid $theme-color;
+		border-radius: 5px;
 		.active {
 			background-color: $theme-color;
 			color: $theme-text-color;

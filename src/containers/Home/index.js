@@ -395,7 +395,7 @@ class Home extends Component {
 							zIndex: 1,
 						}}
 					/>
-					<div className="home_app_bar d-flex justify-content-between align-items-center my-2 mx-3">
+					<div className="home_app_bar d-flex justify-content-between align-items-center">
 						<div className="d-flex align-items-center justify-content-center h-100">
 							{this.renderIcon()}
 						</div>

@@ -5,7 +5,12 @@
 		.market-list__coin-icons {
 			width: 2.8rem;
 			margin: 0.3rem 0.3rem 0 0.3rem;
-
+			>div {
+				text-align: center;
+				svg,svg>g>g {
+					fill: var(--trading_buying-related-elements) !important;
+				}
+			}
 			svg {
 				.btc0,
 				.btc1 {

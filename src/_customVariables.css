@@ -6,10 +6,12 @@
 	/*_________________________________*/
 
 	--base_background: #ffffff;
-	--base_top-bar-navigation: #000000;
+	--base_top-bar-navigation: #12161c;
 	--base_secondary-navigation-bar: #f2f2f3;
 	--base_wallet-sidebar-and-popup: #ffffff;
-	--base_footer: #000000;
+	--base_footer: #12161c;
+
+	--theme_color_1: #f0b90b;
 
 	--labels_important-active-labels-text-graphics: #000000;
 	--labels_secondary-inactive-label-text-graphics: #808080;

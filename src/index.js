@@ -91,25 +91,6 @@ if (process.env.REACT_APP_PLUGIN_DEV_MODE === 'true') {
 	}
 }
 
-const drawFavIcon = (url) => {
-	const head = document.getElementsByTagName('head')[0];
-	const linkEl = document.createElement('link');
-
-	linkEl.type = 'image/x-icon';
-	linkEl.rel = 'icon';
-	linkEl.href = url;
-
-	// remove existing favicons
-	const links = head.getElementsByTagName('link');
-
-	for (let i = links.length; --i >= 0; ) {
-		if (/\bicon\b/i.test(links[i].getAttribute('rel'))) {
-			head.removeChild(links[i]);
-		}
-	}
-
-	head.appendChild(linkEl);
-};
 
 const getConfigs = async () => {
 	const localVersions = getLocalVersions();
@@ -244,14 +225,9 @@ const getConfigs = async () => {
 };
 
 const bootstrapApp = (appConfig, injected_values, injected_html) => {
-	const {
-		icons: {
-			dark: { EXCHANGE_FAV_ICON = '/favicon.ico' },
-		},
-	} = appConfig;
 	addElements(injected_values, 'head');
 	injectHTML(injected_html, 'head');
-	drawFavIcon(EXCHANGE_FAV_ICON);
+	
 	initializeStrings();
 	// window.appConfig = { ...appConfig }
 	const {

@@ -327,7 +327,12 @@ $trade-tab--arrow-size: 0.4rem;
 
 			.coin-price {
 				width: 3rem;
-
+				>div {
+					text-align: center;
+					svg,svg>g>g {
+						fill: var(--trading_buying-related-elements) !important;
+					}
+				}
 				svg {
 					.btc0,
 					.btc1 {

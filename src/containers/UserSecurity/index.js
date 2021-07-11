@@ -507,7 +507,7 @@ class UserVerification extends Component {
 					/>
 				)}
 				<HeaderSection
-					stringId="ACCOUNTS.TAB_SETTINGS"
+					stringId="ACCOUNTS.TAB_SECURITY"
 					title={STRINGS['ACCOUNTS.TAB_SETTINGS']}
 					openContactForm={openContactForm}
 				>

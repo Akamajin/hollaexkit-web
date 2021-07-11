@@ -69,12 +69,8 @@ export const SUMMMARY_ICON = {
 	LEVEL_4_DARK: '/assets/summary/level-4-dark.png',
 };
 
-export const HOLLAEX_LOGO =
-	process.env.REACT_APP_LOGO_PATH ||
-	'https://bitholla.s3.ap-northeast-2.amazonaws.com/kit/LOGO_IMAGE_LIGHT';
-export const HOLLAEX_LOGO_BLACK =
-	process.env.REACT_APP_LOGO_BLACK_PATH ||
-	'https://bitholla.s3.ap-northeast-2.amazonaws.com/kit/LOGO_IMAGE_DARK';
+export const HOLLAEX_LOGO = '/assets/logo/logo.svg';
+export const HOLLAEX_LOGO_BLACK = '/assets/logo/logo.svg';
 
 export const AUDIOS = {
 	ORDERBOOK_FIELD_UPDATE: '/assets/audio/orderbook_field_update.wav',
@@ -221,9 +217,9 @@ export const DEFAULT_URL = '/';
 // minimum level for a user to be able to create api tokens
 export const MIN_LEVEL_FOR_TOKENS = 1;
 
-const THEME_COLOR = localStorage.getItem('theme');
+//const THEME_COLOR = localStorage.getItem('theme');
 export const THEMES = ['dark', 'white'];
-export const THEME_DEFAULT = THEME_COLOR ? THEME_COLOR : THEMES[1];
+export const THEME_DEFAULT = 'white';
 export const CHAT_STATUS_KEY = 'chat:minimized';
 
 /* these values are used for the chart limits on the summary page */

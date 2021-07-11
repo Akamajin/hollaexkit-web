@@ -557,7 +557,7 @@ class App extends Component {
 
 		const homeBackgroundProps = isHome
 			? {
-					backgroundImage: `url(${ICONS['EXCHANGE_LANDING_PAGE']})`,
+					//backgroundImage: `url(${ICONS['EXCHANGE_LANDING_PAGE']})`,
 					backgroundSize: '100%',
 					backgroundRepeat: 'repeat-y',
 			  }

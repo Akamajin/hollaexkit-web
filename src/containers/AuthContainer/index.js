@@ -78,7 +78,6 @@ class AuthContainer extends Component {
 							...FLEX_CENTER_CLASSES
 						)}
 						style={{
-							background: `url(${ICONS['EXCHANGE_BOARDING_IMAGE']})`,
 							backgroundSize: 'cover',
 						}}
 					>
