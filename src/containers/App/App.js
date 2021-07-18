@@ -527,7 +527,6 @@ class App extends Component {
 			features,
 			isReady: isSocketDataReady,
 			pairsTradesFetched,
-			icons: ICONS,
 			menuItems,
 		} = this.props;
 

@@ -55,7 +55,6 @@ class AuthContainer extends Component {
 			activeTheme,
 			children,
 			constants = { captcha: {} },
-			icons: ICONS = {},
 		} = this.props;
 		const languageClasses = getClasesForLanguage(activeLanguage);
 		const childWithLanguageClasses = React.Children.map(children, (child) =>

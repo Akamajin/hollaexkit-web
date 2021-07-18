@@ -1,41 +1,9 @@
 import React from 'react';
 import classnames from 'classnames';
-import { isMobile } from 'react-device-detect';
 // import { PUBLIC_URL } from '../../config/constants';
 import withConfig from 'components/ConfigProvider/withConfig';
-import Image from 'components/Image';
 import withEdit from 'components/EditProvider/withEdit';
 import STRINGS from 'config/localizedStrings';
-
-const generateSectionsText = (links = {}, ICONS) => {
-	let sectionsText = Object.keys(links)
-		.filter(
-			(sectionKey) =>
-				typeof links[sectionKey] === 'object' && links[sectionKey].header
-		)
-		.map((key) => {
-			const section = links[key];
-			let heading = Object.keys(section.header)[0];
-			return {
-				TITLE: section.header[heading],
-				LINKS: Object.keys(section.content).map((contentKey) => ({
-					text: contentKey,
-					link: section.content[contentKey],
-				})),
-			};
-		});
-
-	sectionsText = sectionsText.filter((item) => !!item);
-	return sectionsText.map(({ TITLE, LINKS }) => {
-		let obj = {
-			TITLE,
-			LINKS: LINKS.filter((link) => {
-				return !!link;
-			}),
-		};
-		return obj;
-	});
-};
 
 const AppFooter = ({
 	className,

@@ -9,7 +9,6 @@ import {
 	CHANGE_LANGUAGE,
 	SET_ANNOUNCEMENT,
 	SET_APP_ANNOUNCEMENT,
-	CHANGE_THEME,
 	SET_PAIRS,
 	SET_TICKERS,
 	SET_UNREAD,
@@ -35,7 +34,6 @@ import {
 } from '../actions/appActions';
 import { THEME_DEFAULT } from '../config/constants';
 import { getLanguage } from '../utils/string';
-import { getTheme } from '../utils/theme';
 import { unique } from 'utils/data';
 import { getFavourites, setFavourites } from 'utils/favourites';
 import { generateRemoteRouteStringId } from 'utils/string';

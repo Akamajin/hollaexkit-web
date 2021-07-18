@@ -11,7 +11,6 @@ import { MobileBarWrapper } from '../';
 import { isLoggedIn } from '../../utils/token';
 import { getTickers, changeTheme } from '../../actions/appActions';
 import { updateUserSettings, setUserData } from '../../actions/userAction';
-import ThemeSwitcher from './ThemeSwitcher';
 import { EditWrapper } from 'components';
 import withEdit from 'components/EditProvider/withEdit';
 import withConfig from 'components/ConfigProvider/withConfig';
