@@ -73,8 +73,15 @@ import {
 } from './utils/string';
 import { checkUserSessionExpired } from './utils/utils';
 import { getExchangeInitialized, getSetupCompleted } from './utils/initialize';
+import { builder, BuilderComponent } from '@builder.io/react'
 
 ReactGA.initialize('UA-154626247-1'); // Google analytics. Set your own Google Analytics values
+builder.init('2c003754158940a4b137dfd34b2d4faa')
+
+const Tos = () => <BuilderComponent model="page" entry="dfca04c6ef9245c6b174bce645036ea0" />
+const About = () => <BuilderComponent model="page" entry="d56f7c864d74424096f49bb6afbc08cb" />
+const Faq = () => <BuilderComponent model="page" entry="77efcde9228e4447a9d4baf4c637d9f1" />
+
 browserHistory.listen((location) => {
 	ReactGA.set({ page: window.location.pathname });
 	ReactGA.pageview(window.location.pathname);
@@ -348,6 +355,23 @@ export const generateRoutes = (routes = []) => {
 					component={Withdraw}
 					onEnter={requireAuth}
 				/>
+
+				<Route
+					path="about"
+					name="about"
+					component={About}
+				/>
+				<Route
+					path="tos"
+					name="tos"
+					component={Tos}
+				/>
+				<Route
+					path="faq"
+					name="faq"
+					component={Faq}
+				/>
+
 				<Route
 					path="transactions"
 					name="Transactions"

@@ -323,6 +323,12 @@ class App extends Component {
 				return 'chat';
 			case '/home':
 				return 'home';
+			case '/about':
+				return 'about';
+			case '/tos':
+				return 'tos';
+			case '/faq':
+				return 'faq';
 			default:
 		}
 		if (path.indexOf('/trade/') === 0) {
@@ -550,8 +556,7 @@ class App extends Component {
 
 		const isHome = this.props.location.pathname === '/';
 		const isMenubar = !isHome;
-		const isMenuSider =
-			activePath !== 'trade' && activePath !== 'quick-trade' && !isHome;
+		const isMenuSider =	activePath !== 'trade' && activePath !== 'quick-trade' && activePath !== 'tos' && activePath !== 'faq' && activePath !== 'about' && !isHome;
 		const showFooter = !isMobile || isHome;
 
 		const homeBackgroundProps = isHome
@@ -620,22 +625,20 @@ class App extends Component {
 								onKeyPress={this.resetTimer}
 							/>
 							<div className="d-flex flex-column f-1">
-								{!isHome && (
 									<AppBar
 										router={router}
 										menuItems={menuItems}
 										activePath={this.state.activeMenu}
 										onMenuChange={this.handleMenuChange}
 									>
-										{isBrowser && isMenubar && isLoggedIn() && (
+										{isBrowser && (
 											<AppMenuBar
-												menuItems={menuItems}
+												menuItems={isBrowser && isLoggedIn() ? menuItems : menuItems.filter(mi=>mi.pinned)}
 												activePath={this.state.activeMenu}
 												onMenuChange={this.handleMenuChange}
 											/>
 										)}
 									</AppBar>
-								)}
 								{isBrowser && !isHome && (
 									<PairTabs
 										activePath={activePath}
@@ -802,7 +805,7 @@ class App extends Component {
 						)}
 					>
 						{showFooter && (
-							<AppFooter theme={activeTheme} constants={constants} />
+							<AppFooter theme={activeTheme} constants={constants} router={router}/>
 						)}
 					</div>
 				</div>

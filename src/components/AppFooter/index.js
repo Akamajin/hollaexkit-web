@@ -12,6 +12,7 @@ const AppFooter = ({
 	constants: { links = {} },
 	icons: ICONS,
 	isEditMode,
+	router
 }) => {
 	return (
 		<div className={classnames('app_footer-container','d-flex','flex-column','apply_rtl',{'deep-footer': isEditMode },className)}>
@@ -62,38 +63,13 @@ const AppFooter = ({
 					'align-center'
 				)}
 			>
-				<div className="pt-2">
-					{!links.hide_referral_badge && (
-						<a
-							href={'http://exchange.kerpoo.com/'}
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<span>{'Powered by Kerpoo'}</span>
-						</a>
-					)}
-				</div>
 				<div className="d-flex pt-2">
 					<div className="pr-2">
-						<a
-							href={links.terms || '#'}
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<span>
-								<span>{STRINGS['FOOTER.TERMS_OF_SERVICE']}</span>
-							</span>
-						</a>
+						<span style={{cursor: 'pointer'}} onClick={()=>router.push('/tos')}>{STRINGS['FOOTER.TERMS_OF_SERVICE']}</span>
 					</div>
 					<span>|</span>
 					<div className="pl-2">
-						<a
-							href={links.privacy || '#'}
-							target="_blank"
-							rel="noopener noreferrer"
-						>
-							<span>{STRINGS['FOOTER.PRIVACY_POLICY']}</span>
-						</a>
+						<span style={{cursor: 'pointer'}} onClick={()=>router.push('/faq')}>{STRINGS['FOOTER.SECTIONS.SECTION_5_LINK_4']}</span>
 					</div>
 				</div>
 				<div className="px-4 mx-4" />

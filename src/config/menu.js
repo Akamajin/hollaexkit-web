@@ -53,6 +53,13 @@ export const MENU_ITEMS = {
 			string_id: 'ACCOUNTS.TAB_SETTINGS',
 			hide_from_appbar: true,
 		},
+		{
+			path: '/about',
+			string_id: 'FOOTER.SECTIONS.SECTION_1_LINK_1',
+			hide_from_appbar: false,
+			pinned: true,
+			hide_from_sidebar: true
+		},
 	],
 	bottom: [
 		{
