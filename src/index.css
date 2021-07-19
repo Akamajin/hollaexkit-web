@@ -315,7 +315,7 @@ table th {
   flex-direction: column !important; }
 
 .app_container {
-  min-height: 100vh;
+  min-height: calc(100vh - 38px);
   background-color: var(--base_background);
   color: var(--labels_important-active-labels-text-graphics); }
   .app_container.btc .app_bar .app_bar-controllers {
@@ -9551,7 +9551,8 @@ foreignObject {
     border-top: 1px solid var(--calculated_footer_border);
     text-align: left;
     padding-left: 1rem;
-    padding-bottom: 1rem; }
+    padding-bottom: 1rem;
+    margin: auto; }
 
 .direction_ltr .app_footer-container .footer-row-content .footer-public-texts {
   text-align: right; }
