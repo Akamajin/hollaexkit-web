@@ -1323,6 +1323,7 @@ const nestedContent = {
 	},
 	OPEN_WALLET: '오픈 지갑', // new
 	AGO: 'ago', // new
+	ABOUT_US: 'About us'
 };
 
 const content = flatten(nestedContent, options);

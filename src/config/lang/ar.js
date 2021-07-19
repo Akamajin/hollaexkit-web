@@ -1395,6 +1395,7 @@ const nestedContent = {
 		CHART_24H: 'Chart (24 hours)',
 		VIEW_MARKETS: 'View Markets',
 	},
+	ABOUT_US: 'About us'
 };
 
 const content = flatten(nestedContent, options);

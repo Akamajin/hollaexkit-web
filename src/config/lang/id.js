@@ -1377,4 +1377,5 @@ export default {
 	},
 	OPEN_WALLET: 'dompet terbuka', // new
 	AGO: 'ago', // new
+	ABOUT_US: 'About us'
 };

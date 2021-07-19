@@ -1471,6 +1471,7 @@ const nestedContent = {
 		HEADER_ROW_TYPE: 'Tipo (todos os ativos)',
 		HEADER_ROW_AMOUNT: 'Valor ({0})',
 	},
+	ABOUT_US: 'About us'
 };
 
 const content = flatten(nestedContent, options);

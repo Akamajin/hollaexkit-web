@@ -1382,4 +1382,5 @@ export default {
 	},
 	OPEN_WALLET: 'Ví mở', // new
 	AGO: 'ago', // new
+	ABOUT_US: 'About us'
 };

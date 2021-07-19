@@ -1351,6 +1351,7 @@ const nestedContent = {
 	},
 	OPEN_WALLET: 'کیف پول', // new
 	AGO: 'پیش', // new
+	ABOUT_US: 'درباره ما'
 };
 
 const content = flatten(nestedContent, options);

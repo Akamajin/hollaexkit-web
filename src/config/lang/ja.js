@@ -1349,4 +1349,5 @@ export default {
 	},
 	OPEN_WALLET: 'Open wallet', // new
 	AGO: 'ago', // new
+	ABOUT_US: 'About us'
 };

@@ -1363,4 +1363,5 @@ export default {
 	},
 	OPEN_WALLET: 'Offener Geldbeutel', // new
 	AGO: 'ago', // new
+	ABOUT_US: 'About us'
 };

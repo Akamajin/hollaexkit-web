@@ -1391,4 +1391,5 @@ export default {
 	},
 	OPEN_WALLET: 'Abrir billetera', // new
 	AGO: 'ago', // new
+	ABOUT_US: 'About us'
 };

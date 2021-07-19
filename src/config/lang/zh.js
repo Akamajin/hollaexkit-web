@@ -1267,4 +1267,5 @@ export default {
 	},
 	OPEN_WALLET: 'Open 钱包', // new
 	AGO: 'ago', // new
+	ABOUT_US: 'About us'
 };
