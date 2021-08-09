@@ -9,6 +9,7 @@ import {
 	CHANGE_LANGUAGE,
 	SET_ANNOUNCEMENT,
 	SET_APP_ANNOUNCEMENT,
+	CHANGE_THEME,
 	SET_PAIRS,
 	SET_TICKERS,
 	SET_UNREAD,
@@ -34,11 +35,11 @@ import {
 } from '../actions/appActions';
 import { THEME_DEFAULT } from '../config/constants';
 import { getLanguage } from '../utils/string';
+import { getTheme } from '../utils/theme';
 import { unique } from 'utils/data';
 import { getFavourites, setFavourites } from 'utils/favourites';
 import { generateRemoteRouteStringId } from 'utils/string';
 import { generateRemoteRouteIconId } from 'utils/icon';
-// import { PLUGINS } from 'utils/plugin';
 
 const EMPTY_NOTIFICATION = {
 	type: '',
@@ -308,6 +309,12 @@ const reducer = (state = INITIAL_STATE, { type, payload = {} }) => {
 			return {
 				...state,
 				language: payload.language,
+			};
+
+		case CHANGE_THEME:
+			return {
+				...state,
+				theme: getTheme(payload.theme),
 			};
 		case SET_TICKERS:
 			return {

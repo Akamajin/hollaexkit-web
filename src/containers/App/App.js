@@ -323,12 +323,6 @@ class App extends Component {
 				return 'chat';
 			case '/home':
 				return 'home';
-			case '/about':
-				return 'about';
-			case '/tos':
-				return 'tos';
-			case '/faq':
-				return 'faq';
 			default:
 		}
 		if (path.indexOf('/trade/') === 0) {
