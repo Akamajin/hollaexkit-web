@@ -196,10 +196,10 @@ $placeholder--font-weight: bold;
 		color: $colors-deactivate-color2;
 		height: $toggle-size + $toggle-border * 2 + $toggle-margin * 2;
 		font-family: $raleway-medium--font-family;
-
+		font-weight: 500;
 		.selected {
 			font-family: $raleway-extrabold--font-family;
-			font-weight: bold;
+			font-weight: 900;
 			color: $colors-main-black;
 		}
 

@@ -269,7 +269,6 @@ $trade-tab--arrow-size: 0.4rem;
 	}
 
 	.text-section {
-		font-size: $font-size-subhead3;
 		font-weight: bold;
 	}
 
@@ -356,22 +355,9 @@ $trade-tab--arrow-size: 0.4rem;
 		.home-card-container {
 			margin: 0 2rem 3rem;
 		}
-
-		.buttons-section,
-		.buttons-section-header {
-			.holla-button {
-				font-size: 1.2rem !important;
-			}
-		}
-
-		.text-section {
-			font-size: 1.5rem !important;
-		}
-
 		.live-markets_header {
 			font-size: 1.5rem !important;
 		}
-
 		.features-container {
 			.features-card_container {
 				max-width: $features-container--sm--width;

@@ -1,97 +1,117 @@
 @import url(_customVariables.css);
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;900&display=swap");
+/*
+@font-face {
+	font-family: 'Open Sans';
+	src: url('/assets/fonts/OPENSANS-REGULAR.TTF');
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: 'Open Sans Condensed Bold';
+	src: url('/assets/fonts/OPENSANSCONDENSED-BOLD.TTF');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'Open Sans Condensed Light';
+	src: url('/assets/fonts/OPENSANSCONDENSED-LIGHT.TTF');
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: 'Open Sans Condensed Light Italic';
+	src: url('/assets/fonts/OPENSANSCONDENSED-LIGHTITALIC.TTF');
+	font-style: italic;
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: 'Open Sans Extrabold';
+	src: url('/assets/fonts/OPENSANS-EXTRABOLD.TTF');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'Open Sans Extrabold Italic';
+	src: url('/assets/fonts/OPENSANS-EXTRABOLDITALIC.TTF');
+	font-style: italic;
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'Open Sans Italic';
+	src: url('/assets/fonts/OPENSANS-ITALIC.TTF');
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Open Sans Light';
+	src: url('/assets/fonts/OPENSANS-LIGHT.TTF');
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: 'Open Sans Light Italic';
+	src: url('/assets/fonts/OPENSANS-LIGHTITALIC.TTF');
+	font-style: italic;
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: 'Open Sans Semibold';
+	src: url('/assets/fonts/OPENSANS-SEMIBOLD.TTF');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'Open Sans Semibold Italic';
+	src: url('/assets/fonts/OPENSANS-SEMIBOLDITALIC.TTF');
+	font-style: italic;
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'Raleway';
+	src: url('/assets/fonts/raleway/Raleway-Bold.ttf');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'Raleway';
+	src: url('/assets/fonts/raleway/Raleway-Regular.ttf');
+}
+
+@font-face {
+	font-family: 'Raleway Extrabold';
+	src: url('/assets/fonts/raleway/Raleway-ExtraBold.ttf');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'Raleway Medium';
+	src: url('/assets/fonts/raleway/Raleway-Medium.ttf');
+}
+
+@font-face {
+	font-family: 'Raleway Medium';
+	src: url('/assets/fonts/raleway/Raleway-MediumItalic.ttf');
+	font-style: italic;
+}
+
+@font-face {
+	font-family: 'Raleway Medium';
+	src: url('/assets/fonts/raleway/Raleway-Medium.ttf');
+}
+
+@font-face {
+	font-family: 'Raleway Light';
+	src: url('/assets/fonts/raleway/Raleway-Light.ttf');
+}
+*/
 @import 'https://code.highcharts.com/css/highcharts.css';
 @import url(_customVariables.css);
 @import url(_customVariables.css);
-@font-face {
-  font-family: 'Open Sans';
-  src: url("/assets/fonts/OPENSANS-REGULAR.TTF");
-  font-weight: normal; }
-
-@font-face {
-  font-family: 'Open Sans Condensed Bold';
-  src: url("/assets/fonts/OPENSANSCONDENSED-BOLD.TTF");
-  font-weight: bold; }
-
-@font-face {
-  font-family: 'Open Sans Condensed Light';
-  src: url("/assets/fonts/OPENSANSCONDENSED-LIGHT.TTF");
-  font-weight: normal; }
-
-@font-face {
-  font-family: 'Open Sans Condensed Light Italic';
-  src: url("/assets/fonts/OPENSANSCONDENSED-LIGHTITALIC.TTF");
-  font-style: italic;
-  font-weight: normal; }
-
-@font-face {
-  font-family: 'Open Sans Extrabold';
-  src: url("/assets/fonts/OPENSANS-EXTRABOLD.TTF");
-  font-weight: bold; }
-
-@font-face {
-  font-family: 'Open Sans Extrabold Italic';
-  src: url("/assets/fonts/OPENSANS-EXTRABOLDITALIC.TTF");
-  font-style: italic;
-  font-weight: bold; }
-
-@font-face {
-  font-family: 'Open Sans Italic';
-  src: url("/assets/fonts/OPENSANS-ITALIC.TTF");
-  font-style: italic; }
-
-@font-face {
-  font-family: 'Open Sans Light';
-  src: url("/assets/fonts/OPENSANS-LIGHT.TTF");
-  font-weight: normal; }
-
-@font-face {
-  font-family: 'Open Sans Light Italic';
-  src: url("/assets/fonts/OPENSANS-LIGHTITALIC.TTF");
-  font-style: italic;
-  font-weight: normal; }
-
-@font-face {
-  font-family: 'Open Sans Semibold';
-  src: url("/assets/fonts/OPENSANS-SEMIBOLD.TTF");
-  font-weight: bold; }
-
-@font-face {
-  font-family: 'Open Sans Semibold Italic';
-  src: url("/assets/fonts/OPENSANS-SEMIBOLDITALIC.TTF");
-  font-style: italic;
-  font-weight: bold; }
-
-@font-face {
-  font-family: 'Raleway';
-  src: url("/assets/fonts/raleway/Raleway-Bold.ttf");
-  font-weight: bold; }
-
-@font-face {
-  font-family: 'Raleway';
-  src: url("/assets/fonts/raleway/Raleway-Regular.ttf"); }
-
-@font-face {
-  font-family: 'Raleway Extrabold';
-  src: url("/assets/fonts/raleway/Raleway-ExtraBold.ttf");
-  font-weight: bold; }
-
-@font-face {
-  font-family: 'Raleway Medium';
-  src: url("/assets/fonts/raleway/Raleway-Medium.ttf"); }
-
-@font-face {
-  font-family: 'Raleway Medium';
-  src: url("/assets/fonts/raleway/Raleway-MediumItalic.ttf");
-  font-style: italic; }
-
-@font-face {
-  font-family: 'Raleway Medium';
-  src: url("/assets/fonts/raleway/Raleway-Medium.ttf"); }
-
-@font-face {
-  font-family: 'Raleway Light';
-  src: url("/assets/fonts/raleway/Raleway-Light.ttf"); }
-
 .pointer {
   cursor: pointer; }
 
@@ -160,7 +180,7 @@ table th {
   cursor: not-allowed; }
 
 .direction_ltr .title-font {
-  font-family: "Raleway"; }
+  font-family: "Roboto"; }
 
 .blue-link {
   color: var(--specials_buttons-links-and-highlights) !important; }
@@ -314,6 +334,21 @@ table th {
 .flex-direction-column {
   flex-direction: column !important; }
 
+/* Shahab */
+.white-box {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 4px;
+  border: 1px solid #d3d3d3; }
+
+.from-control {
+  background-color: #f1f5f7;
+  border: 1px solid #c4ccd0;
+  border-radius: 4px;
+  padding-top: 4px;
+  height: 28px;
+  vertical-align: middle; }
+
 .app_container {
   min-height: 100vh;
   background-color: var(--base_background);
@@ -422,7 +457,7 @@ table th {
       position: relative;
       margin-bottom: 1rem; }
       .presentation_container .inner_container .information_block .information_block-text_wrapper .title {
-        font-size: 1.1rem; }
+        font-size: 14px; }
       .presentation_container .inner_container .information_block .information_block-text_wrapper .text {
         font-size: 1rem;
         color: var(--labels_secondary-inactive-label-text-graphics); }
@@ -711,7 +746,7 @@ table th {
     height: 3.5rem;
     vertical-align: bottom; }
   .user-limits .user-limits-table tfoot {
-    font-size: 1.1rem; }
+    font-size: 14px; }
     .user-limits .user-limits-table tfoot td {
       white-space: nowrap; }
   .user-limits .user-limits-table .table-row {
@@ -749,7 +784,7 @@ table th {
     direction: ltr; }
 
 .direction_ltr .user-limits .user-limits-table th {
-  font-family: "Raleway"; }
+  font-family: "Roboto"; }
 
 .direction_ltr .user-limits .user-limits-table th,
 .direction_ltr .user-limits .user-limits-table td {
@@ -801,7 +836,7 @@ table th {
           width: 9rem !important;
           height: 9rem !important; }
     .otp_form-wrapper .otp_form-section-wrapper .otp_form-section-title {
-      font-size: 1.1rem;
+      font-size: 14px;
       font-weight: bold; }
     .otp_form-wrapper .otp_form-section-wrapper .otp_form-section-text {
       font-size: 1rem; }
@@ -858,7 +893,7 @@ table th {
   stroke-width: 1rem; }
 
 .popup_info-wrapper .popup_info-title {
-  font-family: "Raleway";
+  font-family: "Roboto";
   font-size: 1.3rem;
   border-bottom: 1px solid var(--calculated_secondary-border); }
 
@@ -1173,7 +1208,6 @@ table th {
   .home_container .buttons-section {
     margin: 0.5rem; }
   .home_container .text-section {
-    font-size: 1.3rem;
     font-weight: bold; }
   .home_container .buttons-section--button {
     width: 15rem;
@@ -1235,11 +1269,6 @@ table th {
 @media (max-width: 767px) {
   .home_container .home-card-container {
     margin: 0 2rem 3rem; }
-  .home_container .buttons-section .holla-button,
-  .home_container .buttons-section-header .holla-button {
-    font-size: 1.2rem !important; }
-  .home_container .text-section {
-    font-size: 1.5rem !important; }
   .home_container .live-markets_header {
     font-size: 1.5rem !important; }
   .home_container .features-container .features-card_container {
@@ -1360,7 +1389,7 @@ table th {
         height: 3.5rem;
         vertical-align: bottom; }
       .wallet-container .wallet-assets_block .wallet-assets_block-table tfoot {
-        font-size: 1.1rem; }
+        font-size: 14px; }
         .wallet-container .wallet-assets_block .wallet-assets_block-table tfoot td {
           white-space: nowrap; }
       .wallet-container .wallet-assets_block .wallet-assets_block-table .table-row {
@@ -1404,13 +1433,13 @@ table th {
   position: absolute; }
 
 .wallet-notification .action_notification-text {
-  font-size: 1.1rem !important; }
+  font-size: 14px !important; }
 
 .direction_ltr .wallet-container .wallet-header_block {
-  font-family: "Raleway"; }
+  font-family: "Roboto"; }
 
 .direction_ltr .wallet-container .wallet-assets_block .wallet-assets_block-table th {
-  font-family: "Raleway"; }
+  font-family: "Roboto"; }
 
 .direction_ltr .wallet-container .wallet-assets_block .wallet-assets_block-table th,
 .direction_ltr .wallet-container .wallet-assets_block .wallet-assets_block-table td {
@@ -1462,7 +1491,7 @@ table th {
   border-bottom: 1px solid var(--labels_important-active-labels-text-graphics);
   text-align: center; }
   .review-wrapper .review-crypto-amount .review-fee_message {
-    font-size: 1.1rem; }
+    font-size: 14px; }
 
 .review-wrapper .review-warning_arrow {
   position: relative;
@@ -2111,7 +2140,8 @@ table th {
   overflow-y: scroll; }
 
 .direction_ltr .trade_block-title {
-  font-family: "Raleway Extrabold"; }
+  font-family: "Roboto";
+  font-weight: 900; }
 
 .direction_ltr .trade_block_tabs-wrapper .trade_block-title .trade_block-title-items > div:not(:last-child) {
   margin-right: 2rem; }
@@ -2437,7 +2467,7 @@ table th {
   .trade_orderbook-wrapper .orderbook-limit_bar-wrapper .orderbook-limit_bar-line {
     height: 2px; }
   .trade_orderbook-wrapper .orderbook-limit_bar-wrapper .orderbook-limit_bar-text {
-    font-size: 1.1rem; }
+    font-size: 14px; }
 
 .trade-select-option-wrapper .ant-select-item,
 .trade-select-option-wrapper .ant-select-item-option-content {
@@ -2578,9 +2608,9 @@ table th {
 
 .trade-tab__market-selector {
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: 900;
   font-size: 1.75rem;
-  font-family: "Raleway Extrabold"; }
+  font-family: "Roboto"; }
 
 .mobile-chart__market-selector-wrapper {
   font-family: 'Open Sans' !important;
@@ -2663,7 +2693,7 @@ table th {
 
 .quote-success-review-text {
   margin: 1rem 0 2rem;
-  font-size: 1.1rem;
+  font-size: 14px;
   text-align: center; }
 
 .quote-success__title {
@@ -2731,9 +2761,9 @@ table th {
     padding: 0; }
   .verification_container .header-content {
     color: var(--labels_secondary-inactive-label-text-graphics);
-    font-size: 1.1rem; }
+    font-size: 14px; }
   .verification_container .content-text {
-    font-size: 1.1rem; }
+    font-size: 14px; }
   .verification_container .document-note-icon {
     width: 3.5rem; }
   .verification_container .inner-content {
@@ -2976,7 +3006,7 @@ table th {
     .summary-container .summary-block_wrapper .summary-title-icon {
       width: 2rem; }
   .summary-container .summary-content-txt {
-    font-size: 1.1rem; }
+    font-size: 14px; }
   .summary-container .trader-account-wrapper {
     margin-right: 1.5rem;
     width: 25rem; }
@@ -3259,7 +3289,7 @@ table th {
     .fee-limits-wrapper .content-txt .fee-reduction-container {
       border: 1px solid var(--calculated_secondary-border); }
   .fee-limits-wrapper .content-title {
-    font-size: 1.1rem;
+    font-size: 14px;
     font-weight: bold;
     margin: 1.5rem 0; }
   .fee-limits-wrapper .icon_title-wrapper {
@@ -3469,7 +3499,6 @@ table th {
 
 .market-list__container .market-list__block .market-list__block-table {
   width: 100%;
-  font-size: 1rem;
   margin-bottom: 3rem; }
   .market-list__container .market-list__block .market-list__block-table thead {
     color: var(--labels_secondary-inactive-label-text-graphics); }
@@ -3504,7 +3533,7 @@ table th {
     direction: ltr; }
 
 .direction_ltr .market-list__container .market-list__block .market-list__block-table th {
-  font-family: "Raleway";
+  font-family: "Roboto";
   vertical-align: middle;
   padding: 0.5rem; }
 
@@ -3531,16 +3560,12 @@ table th {
 .layout-mobile .market-list__container .market-list__block {
   overflow-x: auto;
   position: relative; }
-  .layout-mobile .market-list__container .market-list__block .market-list__block-table thead {
-    font-size: 1.3rem !important; }
-  .layout-mobile .market-list__container .market-list__block .market-list__block-table .table-row {
-    font-size: 1.3rem !important; }
-    .layout-mobile .market-list__container .market-list__block .market-list__block-table .table-row td {
-      padding: 0.5rem;
-      min-width: 10rem; }
-    .layout-mobile .market-list__container .market-list__block .market-list__block-table .table-row .td-chart {
-      min-width: 15rem;
-      padding: 0 !important; }
+  .layout-mobile .market-list__container .market-list__block .market-list__block-table .table-row td {
+    padding: 0.5rem;
+    min-width: 10rem; }
+  .layout-mobile .market-list__container .market-list__block .market-list__block-table .table-row .td-chart {
+    min-width: 15rem;
+    padding: 0 !important; }
   .layout-mobile .market-list__container .market-list__block .market-list__block-table .sticky-col {
     position: -webkit-sticky;
     position: sticky;
@@ -3568,7 +3593,8 @@ table th {
     margin: 1rem auto;
     width: 8rem; }
   .trade_tabs-container .trade-tab-app-title {
-    font-family: "Raleway Light";
+    font-family: "Roboto";
+    font-weight: 300;
     letter-spacing: 0.3rem;
     font-size: 0.8rem; }
   .trade_tabs-container .trade_tabs-content {
@@ -3627,7 +3653,7 @@ table th {
       fill: var(--labels_secondary-inactive-label-text-graphics) !important; }
   .trade_tabs-container .trade_tab-pair-title {
     color: var(--labels_important-active-labels-text-graphics);
-    font-size: 1.1rem;
+    font-size: 14px;
     font-weight: bold; }
   .trade_tabs-container .trade_tab-pair-sub-title {
     font-size: 1rem; }
@@ -4772,7 +4798,7 @@ table th {
     color: var(--calculated_base_top-bar-navigation_text-inactive);
     cursor: pointer;
     display: flex;
-    font-size: 1.1rem;
+    font-size: 14px;
     font-weight: 400;
     height: 100%;
     padding: 0 0.5rem;
@@ -5921,7 +5947,7 @@ table th {
   padding-top: 0.5rem;
   position: relative; }
   .header_title-wrapper .header_title-children {
-    font-size: 1.1rem;
+    font-size: 14px;
     color: var(--labels_secondary-inactive-label-text-graphics);
     padding: 0.5rem 0; }
   .header_title-wrapper .header_title-icon {
@@ -6010,7 +6036,7 @@ table th {
     fill: var(--labels_important-active-labels-text-graphics); }
 
 .direction_ltr .check_title-container {
-  font-family: "Raleway"; }
+  font-family: "Roboto"; }
 
 .layout-mobile .mobile_tab-wrapper .status_txt {
   font-size: 13px; }
@@ -6253,7 +6279,7 @@ table th {
       color: var(--labels_important-active-labels-text-graphics); }
   .notification-wrapper .notification-content-wrapper {
     position: relative;
-    font-size: 1.1rem;
+    font-size: 14px;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -6310,7 +6336,7 @@ table th {
     .notification-wrapper .order-notification .notification-content-title {
       margin: 1rem 0; }
   .notification-wrapper .notification-buttons-wrapper .holla-button {
-    font-size: 1.1rem;
+    font-size: 14px;
     font-weight: bold; }
   .notification-wrapper .with_price-block_amount {
     margin: 3rem 0 4rem;
@@ -6388,7 +6414,8 @@ table th {
 
 .direction_ltr .notification-title-text,
 .direction_ltr .notification-withdrawal .notification-content-title {
-  font-family: "Raleway Medium"; }
+  font-family: "Roboto";
+  font-weight: 500; }
 
 .layout-mobile .notification-wrapper {
   flex: 1;
@@ -6799,10 +6826,11 @@ table th {
   font-size: 1rem;
   color: var(--labels_secondary-inactive-label-text-graphics);
   height: 22px;
-  font-family: "Raleway Medium"; }
+  font-family: "Roboto";
+  font-weight: 500; }
   .toggle_button-wrapper .toggle-content .selected {
-    font-family: "Raleway Extrabold";
-    font-weight: bold;
+    font-family: "Roboto";
+    font-weight: 900;
     color: var(--labels_important-active-labels-text-graphics); }
   .toggle_button-wrapper .toggle-content .toggle-action_button {
     border: 2px solid var(--calculated_important-border);
@@ -6975,7 +7003,7 @@ table th {
     border: none; }
 
 .checkbutton-wrapper {
-  font-size: 1.1rem;
+  font-size: 14px;
   display: flex;
   justify-content: center;
   align-items: center; }
@@ -7004,7 +7032,7 @@ table th {
   margin-right: 1rem; }
 
 .direction_ltr .holla-button-font {
-  font-family: "Raleway"; }
+  font-family: "Roboto"; }
 
 .direction_rtl .holla-button-font {
   font-family: inherit !important; }
@@ -7212,7 +7240,7 @@ table th {
   .accordion_wrapper .accordion_section:last-child {
     border-bottom: 1px solid var(--calculated_important-border); }
   .accordion_wrapper .accordion_section .accordion_section_content {
-    font-size: 1.1rem;
+    font-size: 14px;
     padding: 0; }
   .accordion_wrapper .accordion_section .action_notification-wrapper {
     top: calc(50% - 0.65rem);
@@ -7311,7 +7339,8 @@ table th {
     stroke: var(--specials_buttons-links-and-highlights); }
 
 .direction_ltr .action_notification-wrapper {
-  font-family: "Raleway Medium" !important; }
+  font-family: "Roboto" !important;
+  font-weight: 500; }
   .direction_ltr .action_notification-wrapper.left {
     left: 0; }
   .direction_ltr .action_notification-wrapper.right {
@@ -7465,14 +7494,14 @@ table th {
       font-size: 3.5rem;
       text-transform: capitalize; }
   .icon_title-wrapper .auth_logo-wrapper {
-    height: 6rem !important;
-    width: 10rem !important;
+    height: 43px !important;
+    width: 200px !important;
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat; }
 
 .direction_ltr .icon_title-wrapper {
-  font-family: "Raleway"; }
+  font-family: "Roboto"; }
 
 .layout-mobile .icon_title-wrapper .auth_logo-wrapper svg {
   height: 8rem !important;
@@ -7491,7 +7520,7 @@ table th {
   position: relative; }
   .otp_form-title-wrapper .otp_form-title-text {
     font-weight: bold;
-    font-size: 1.1rem; }
+    font-size: 14px; }
 
 .otp_form-fields {
   margin-bottom: 1rem; }
@@ -7534,10 +7563,10 @@ table th {
   height: 100%; }
 
 .currency_ball-wrapper {
-  font-family: "Raleway Medium" !important;
+  font-family: "Roboto" !important;
   text-transform: uppercase;
   border-radius: 50%;
-  font-weight: bold;
+  font-weight: 500;
   color: var(--base_background); }
   .currency_ball-wrapper.default-coin {
     border: 1px solid var(--calculated_secondary-border);
@@ -7865,7 +7894,8 @@ table th {
   margin-right: 0.5rem; }
 
 .direction_ltr .table_header-wrapper {
-  font-family: "Raleway Extrabold"; }
+  font-family: "Roboto";
+  font-weight: 900; }
 
 .direction_rtl .cell_box-type > div {
   margin-left: 0.5rem; }
@@ -8182,14 +8212,14 @@ table th {
     stroke-width: 0.5px; }
   .bar_wrapper .bar_yAxis .tick text {
     color: var(--labels_important-active-labels-text-graphics);
-    font-family: "Raleway";
+    font-family: "Roboto";
     font-size: 1.2rem;
     font-weight: bold; }
   .bar_wrapper .bar_xAxis line {
     visibility: hidden; }
   .bar_wrapper .bar_xAxis .axis_month {
     font-size: 1rem;
-    font-family: "Raleway";
+    font-family: "Roboto";
     color: var(--labels_secondary-inactive-label-text-graphics); }
   .bar_wrapper .bar_xAxis .axis_month-active {
     color: var(--labels_important-active-labels-text-graphics);
@@ -8357,7 +8387,7 @@ foreignObject {
       font-family: inherit; }
 
 .direction_ltr .quick_trade-wrapper {
-  font-family: "Raleway"; }
+  font-family: "Roboto"; }
 
 .quick_trade-tab-icon {
   width: 10rem;
@@ -8395,10 +8425,11 @@ foreignObject {
     font-size: 1rem;
     color: var(--labels_secondary-inactive-label-text-graphics);
     height: 22px;
-    font-family: "Raleway Medium"; }
+    font-family: "Roboto";
+    font-weight: 500; }
     .quick_trade-wrapper .toogle_button-wrapper .toogle-content .selected {
-      font-family: "Raleway Extrabold";
-      font-weight: bold;
+      font-family: "Roboto";
+      font-weight: 900;
       color: var(--labels_important-active-labels-text-graphics); }
     .quick_trade-wrapper .toogle_button-wrapper .toogle-content .toogle-action_button {
       border: 2px solid var(--labels_important-active-labels-text-graphics);
@@ -8450,7 +8481,8 @@ foreignObject {
     margin-bottom: 0; }
   .quick_trade-wrapper .input_block-title {
     font-size: 1.3rem;
-    font-family: "Raleway Medium"; }
+    font-family: "Roboto";
+    font-weight: 500; }
   .quick_trade-wrapper .input_block-content {
     border-bottom: 2px solid var(--calculated_important-border);
     width: 100%; }
@@ -9344,7 +9376,7 @@ foreignObject {
   border-top: 0.3rem solid var(--calculated_secondary-border);
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
-  font-family: "Raleway";
+  font-family: "Roboto";
   height: 3.5rem;
   left: calc(50vw - 10rem);
   padding: 0.3rem 0.5rem !important;
@@ -9396,7 +9428,7 @@ foreignObject {
 
 .snack_dialog-wrapper {
   background-color: var(--labels_important-active-labels-text-graphics);
-  font-family: "Raleway";
+  font-family: "Roboto";
   padding: 0.3rem 0.5rem !important;
   position: absolute;
   width: 100%;
@@ -9507,7 +9539,7 @@ foreignObject {
     width: 100%; }
     .app_footer-container .footer-row-content .footer-links-section .footer-links-group {
       margin: 1rem;
-      font-size: 1.1rem; }
+      font-size: 14px; }
       .app_footer-container .footer-row-content .footer-links-section .footer-links-group .footer-links-section--title {
         font-weight: bold;
         margin-bottom: 0.25rem;
@@ -9862,8 +9894,8 @@ body {
   height: 100%;
   background-color: var(--base_background) !important;
   color: var(--labels_important-active-labels-text-graphics);
-  font-size: 1.1rem !important;
-  font-family: "Open Sans" !important;
+  font-size: 14px !important;
+  font-family: "Roboto" !important;
   height: 100%; }
 
 .direction_rtl.apply_rtl {

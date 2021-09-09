@@ -88,10 +88,11 @@ $title-icon--height: 10rem;
 			color: $colors-deactivate-color2;
 			height: $toogle-size + $toogle-border * 2 + $toogle-margin * 2;
 			font-family: $raleway-medium--font-family;
+			font-weight: 500;
 
 			.selected {
 				font-family: $raleway-extrabold--font-family;
-				font-weight: bold;
+				font-weight: 900;
 				color: $colors-main-black;
 			}
 
@@ -168,6 +169,7 @@ $title-icon--height: 10rem;
 	.input_block-title {
 		font-size: $font-size-subhead3;
 		font-family: $raleway-medium--font-family;
+		font-weight: 500;
 	}
 
 	.input_block-content {
