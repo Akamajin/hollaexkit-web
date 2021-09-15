@@ -144,6 +144,7 @@ const nestedContent = {
 		TITLE: 'Account',
 		TAB_VERIFICATION: 'Verification',
 		TAB_SECURITY: 'Security',
+		TAB_INVESTMENT: 'Investment',
 		TAB_NOTIFICATIONS: 'Notifications',
 		TAB_SETTINGS: 'Settings',
 		TAB_PROFILE: 'Profile',

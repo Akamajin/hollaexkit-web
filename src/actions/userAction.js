@@ -112,8 +112,7 @@ export const updateDocuments = (values) => {
 
 export const otpActivate = (values) => axios.post('/user/activate-otp', values);
 export const otpRevoke = (values) => axios.post('/user/deactivate-otp', values);
-export const resetPassword = (values) =>
-	axios.post('/user/change-password', values);
+export const resetPassword = (values) => axios.post('/user/change-password', values);
 export const otpSetActivated = (active = true) =>
 	active
 		? {
@@ -322,3 +321,10 @@ export const getUserLogins = ({ limit = 50, page = 1, ...rest }) => {
 			});
 	};
 };
+
+export const getBalances = () => axios.get('/user/balances')
+
+export const createBalanceRowByUser = (data) => axios.post('/user/balances', data);
+
+export const cancelWithdraw = (data) => axios.post('/user/cancel-withdraw', data);
+

@@ -1,0 +1,8 @@
+.investment-plans-forms {
+	display: flex;
+	flex-wrap: wrap;
+}
+.investment-plan-form {
+	flex: 1 1 33%;
+	padding: 10px;
+}

@@ -29,6 +29,7 @@ export { default as AddTradeTabs } from './TradeTabs';
 export { default as ExpiredExchange } from './ExpiredExchange';
 export { default as TermsOfService } from './TermsOfService';
 export { default as DepositFunds } from './TermsOfService/DepositFunds';
+export { default as Investment } from './Investment/Investment';
 
 // ADMIN PAGE
 export { default as AdminDashboard } from './Admin/Dashboard';
@@ -55,6 +56,7 @@ export { default as ThemeProvider } from './ThemeProvider';
 export { default as Init } from './Init';
 export { default as AdminLogin } from './Init/Login';
 export { default as AdminFinancials } from './Admin/AdminFinancials';
+export { default as AdminInvestment } from './Admin/AdminInvestment';
 export { default as MoveToDash } from './Admin/MoveToDash';
 export { default as General } from './Admin/General';
 export { default as Tiers } from './Admin/Tiers';

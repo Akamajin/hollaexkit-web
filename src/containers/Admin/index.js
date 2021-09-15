@@ -1,6 +1,7 @@
 export { default as User } from './User';
 export { default as TradeHistory } from './TradeHistory';
 export { default as UserBalance } from './UserBalance';
+export { default as UserFinancials } from './UserFinancials';
 export { default as Logins } from './Logins';
 export { default as Audits } from './Audits';
 export { default as AppWrapper } from './AppWrapper';

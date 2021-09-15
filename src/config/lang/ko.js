@@ -120,6 +120,7 @@ const nestedContent = {
 		TITLE: '계정',
 		TAB_VERIFICATION: '회원정보',
 		TAB_SECURITY: '보안',
+		TAB_INVESTMENT: '투자',
 		TAB_NOTIFICATIONS: '알림',
 		TAB_SETTINGS: '설정',
 		TAB_PROFILE: '프로필',

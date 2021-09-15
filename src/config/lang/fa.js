@@ -130,6 +130,7 @@ const nestedContent = {
 		TITLE: 'حساب کاربری',
 		TAB_VERIFICATION: 'تایید حساب کاربری',
 		TAB_SECURITY: 'امنیت',
+		TAB_INVESTMENT: 'سرمایه گذاری',
 		TAB_NOTIFICATIONS: 'اعلانات',
 		TAB_SETTINGS: 'تنظیمات',
 		TAB_PROFILE: 'پروفایل',

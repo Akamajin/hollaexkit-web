@@ -128,6 +128,7 @@ export default {
 		TITLE: 'Akun',
 		TAB_VERIFICATION: 'Verifikasi',
 		TAB_SECURITY: 'Keamanan',
+		TAB_INVESTMENT: 'Investasi',
 		TAB_NOTIFICATIONS: 'Notifikasi',
 		TAB_SETTINGS: 'Pengaturan',
 		TAB_PROFILE: 'Profile',

@@ -128,6 +128,7 @@ export default {
 		TITLE: 'Tài khoản',
 		TAB_VERIFICATION: 'Xác thực',
 		TAB_SECURITY: 'Bảo mật',
+		TAB_INVESTMENT: 'Sự đầu tư',
 		TAB_NOTIFICATIONS: 'Thông báo',
 		TAB_SETTINGS: 'Cài đặt',
 		TAB_PROFILE: 'Thông tin cá nhân',

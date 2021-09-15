@@ -58,6 +58,11 @@ export const PATHS = [
 		routeKey: 'apikeys',
 	},
 	{
+		path: '/admin/investment',
+		label: 'Investment Plans',
+		routeKey: 'investment',
+	},
+	{
 		path: '/admin/billing',
 		label: 'Billing',
 		routeKey: 'billing',

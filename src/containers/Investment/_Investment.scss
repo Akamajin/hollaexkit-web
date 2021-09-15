@@ -1,0 +1,162 @@
+.investment-container {
+	border-top: 1px solid rgb(225, 226, 216);
+	padding-top: 5px;
+	.table {
+		thead>tr {
+			th:last-child {
+				width: 175px;
+				text-align: center;
+			}
+		}
+		tbody>tr {
+			td:last-child {
+				text-align: center;
+			}
+		}
+		td, th {
+			vertical-align: middle;
+		}
+		span.text-button {
+			color: red;
+			cursor: pointer;
+		}
+	}
+	.inv-overview {
+		margin-bottom: 8px;
+		display: flex;
+		>div{
+			flex: 1;
+		}
+	}
+	.withdraw-box{
+		max-width: 340px;
+		button {
+			width: 35px;
+			margin-left: 5px;
+		}
+		input {
+			flex: 1;
+			border-radius: 5px;
+			padding-left: 8px;
+			color: #202020;
+		}
+	}
+}
+.invstmnt-table-actions {
+	display: flex;
+	justify-content: center;
+	button {
+		margin: 0 3px;
+		flex: 0 1 85px;
+	}
+}
+.invstmnt-spinner .ant-spin-spinning {
+    position: absolute;
+    right: 50%;
+    top: 50%;
+}
+
+.investment-plans {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+	.invest-card {
+		flex: 1;
+		position: relative;
+		margin: 5px;
+		background-color: #333333;
+		padding: 15px;
+		border-radius: 7px;
+		.ic-header {
+			text-align: center;
+			background-color: #414141;
+			margin: -15px -15px 0;
+			border-radius: 7px 7px 0 0;
+			padding-bottom: 1px;
+			margin-bottom: 15px;
+			border-bottom: 2px solid #d4a71b;
+			.ic-title {
+				background-color: #414141;
+				max-width: 130px;
+				text-align: center;
+				margin: 0 auto;
+				border-radius: 20px;
+				padding: 4px 0;
+				font-size: 16px;
+				font-weight: bold;
+				position: relative;
+				top: -10px;
+				border: 1px solid #333232;
+			}
+			.ic-amount {
+				text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+				>div {
+					color: #fff;
+				}
+				h3 {
+					color: #fff;
+					font-size: 30px;
+					letter-spacing: 4px;
+				}
+			}
+		}
+		ul {
+			margin-bottom: 0;
+		}
+		&.ic-active .ic-header {
+			background-color: #f0b90b;
+			.ic-title {
+				color: #f0b90b;
+				border-color: #f0b90b;
+			}
+		}
+		.ic-active-text {
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: -28px;
+			text-align: center;
+			color: #727272;
+		}
+	}
+}
+.investment-plans-title {
+	margin: 20px 0;
+	text-align: center;
+}
+.white-theme .investment-plans-title {
+	color: #404040;
+}
+.white-theme .investment-plans {
+	.invest-card {
+		background-color: #ebebeb;
+		.ic-header {
+			background-color: #d0d0d0;
+			border-bottom-color: #f0ad0b;
+			.ic-title {
+				background-color: #ebebeb;
+				border-color: #d6d6d6;
+				color: #5a5a5a;
+			}
+			.ic-amount {
+				text-shadow: none;
+				>div {
+					color: #444;
+				}
+				h3 {
+					color: #444;
+				}
+			}
+		}
+		&.ic-active .ic-header {
+			background-color: #f0b90b;
+			.ic-title {
+				color: #dca200;
+				border-color: #f0b90b;
+			}
+		}
+		.ic-active-text {
+			color: #727272;
+		}
+	}
+}

@@ -116,6 +116,7 @@ export default {
 		TITLE: '账号',
 		TAB_VERIFICATION: '审核',
 		TAB_SECURITY: '安全性',
+		TAB_INVESTMENT: '投资',
 		TAB_NOTIFICATIONS: '通知',
 		TAB_SETTINGS: '设置',
 		TAB_PROFILE: '简介',

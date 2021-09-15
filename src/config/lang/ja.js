@@ -127,6 +127,7 @@ export default {
 		TITLE: 'マイページ',
 		TAB_VERIFICATION: '会員情報',
 		TAB_SECURITY: 'セキュリティ',
+		TAB_INVESTMENT: '投資',
 		TAB_NOTIFICATIONS: 'アラート',
 		TAB_SETTINGS: '設定',
 		TAB_PROFILE: 'プロファイル',

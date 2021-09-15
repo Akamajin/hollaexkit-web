@@ -128,6 +128,7 @@ export default {
 		TITLE: 'Konto',
 		TAB_VERIFICATION: 'Verifizierung',
 		TAB_SECURITY: 'Sicherheit',
+		TAB_INVESTMENT: 'Investition',
 		TAB_NOTIFICATIONS: 'Benachrichtigungen',
 		TAB_SETTINGS: 'Einstellungen',
 		TAB_PROFILE: 'Profil',

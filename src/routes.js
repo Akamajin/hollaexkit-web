@@ -46,11 +46,13 @@ import {
 	AdminLogin,
 	AdminDashboard,
 	AdminFinancials,
+	AdminInvestment,
 	MoveToDash,
 	General,
 	Tiers,
 	Roles,
 	Resources,
+	Investment
 } from './containers';
 import chat from './containers/Admin/Chat';
 
@@ -344,6 +346,12 @@ export const generateRoutes = (routes = []) => {
 					onEnter={requireAuth}
 				/>
 				<Route
+					path="investment"
+					name="Investment"
+					component={Investment}
+					onEnter={requireAuth}
+				/>
+				<Route
 					path="wallet/:currency/deposit"
 					name="Deposit"
 					component={Deposit}
@@ -439,6 +447,11 @@ export const generateRoutes = (routes = []) => {
 					path="/admin/apikeys"
 					name="Admin APIkeys"
 					component={withAdminProps(MoveToDash, 'apikeys')}
+				/>
+				<Route
+					path="/admin/investment"
+					name="Investment Plans"
+					component={withAdminProps(AdminInvestment, 'investment')}
 				/>
 				<Route
 					path="/admin/billing"

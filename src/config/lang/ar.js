@@ -124,6 +124,7 @@ const nestedContent = {
 		TITLE: 'الحساب',
 		TAB_VERIFICATION: 'التحقق',
 		TAB_SECURITY: 'الأمان',
+		TAB_INVESTMENT: 'استثمار',
 		TAB_NOTIFICATIONS: 'إشعارات',
 		TAB_SETTINGS: 'إعدادات',
 		TAB_PROFILE: 'الملف الشخصي',

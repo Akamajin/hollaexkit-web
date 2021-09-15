@@ -15,6 +15,7 @@ import {
 	// UploadIds,
 	Transactions,
 	ActiveOrders,
+	UserFinancials
 } from '../';
 // import UserData from './UserData';
 import BankData from './BankData';
@@ -319,6 +320,11 @@ class UserContent extends Component {
 					{!isSupportUser && !isKYC() && (
 						<TabPane tab="Balance" key="balance">
 							<UserBalance coins={coins} userData={userInformation} />
+						</TabPane>
+					)}
+					{!isSupportUser && !isKYC() && (
+						<TabPane tab="Investment" key="investment">
+							<UserFinancials userData={userInformation} />
 						</TabPane>
 					)}
 					{!isSupportUser && !isKYC() && (
