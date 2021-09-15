@@ -173,7 +173,6 @@ class AppBar extends Component {
 	render() {
 		const {
 			user,
-			constants = {},
 			children,
 			activePath,
 			onMenuChange,
@@ -193,14 +192,7 @@ class AppBar extends Component {
 					'justify-content-center'
 				)}
 			>
-				<Link to="/">
-					<div
-						style={{
-							backgroundImage: `url(${constants.logo_image})`,
-						}}
-						className="homeicon-svg"
-					/>
-				</Link>
+				
 			</MobileBarWrapper>
 		) : (
 			<div
@@ -242,7 +234,7 @@ class AppBar extends Component {
 								toggle={this.onToggle}
 							/>
 						</div>
-						<AnnouncementList user={user.email} />
+						<AnnouncementList user={user.email} adminAnnouncement={user.note} />
 						<MenuList
 							menuItems={menuItems}
 							securityPending={securityPending}

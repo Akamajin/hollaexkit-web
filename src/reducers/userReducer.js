@@ -12,6 +12,7 @@ const USER_DATA_KEYS = [
 	'id_data',
 	'bank_account',
 	'email_verified',
+	'note'
 ];
 
 const INITIAL_OTP_OBJECT = {
@@ -148,6 +149,7 @@ export default function reducer(state = INITIAL_STATE, action) {
 				full_name,
 				gender,
 				dob,
+				note
 			} = action.payload;
 			const userData = extractuserData(action.payload);
 			const fees = action.payload.fees || state.fees;
@@ -185,6 +187,7 @@ export default function reducer(state = INITIAL_STATE, action) {
 				full_name,
 				dob,
 				gender,
+				note
 			};
 		}
 		case 'SET_USER_DATA': {

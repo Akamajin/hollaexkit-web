@@ -14,13 +14,15 @@ const AnnouncementList = ({
 	user,
 	announcements,
 	getAnnouncement,
+	adminAnnouncement
 }) => {
 	const [isOpen, setOpen] = useState(false);
 	const [unreadCount, setUnreadCount] = useState(0);
+	const [ancSet, setAncSet] = useState(false);
 	const elementRef = useRef(null);
 
 	const getAnnouncementList = useCallback(() => {
-		getAnnouncement();
+		getAnnouncement()
 	}, [getAnnouncement]);
 
 	useEffect(() => {
@@ -33,8 +35,12 @@ const AnnouncementList = ({
 	useEffect(() => {
 		if (user) {
 			getAnnouncementList();
+			if (adminAnnouncement && !ancSet) {
+				setUnreadCount(unreadCount + 1)
+				setAncSet(true)
+			}
 		}
-	}, [user, getAnnouncementList]);
+	}, [user, getAnnouncementList, adminAnnouncement, unreadCount, ancSet]);
 
 	useEffect(() => {
 		if (isOpen) {

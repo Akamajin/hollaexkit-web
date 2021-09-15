@@ -22,11 +22,17 @@ export const NotificationItem = ({
 			<div>
 				<div className="d-flex my-2">
 					<div className="mr-2">
-						<Image
+						{type ?
+							<Image
+								iconId={type}
+								icon={ICONS[type]}
+								wrapperClassName="trade_post_icon"
+							/>
+						: <Image
 							iconId="TRADE_ANNOUNCEMENT"
 							icon={ICONS['TRADE_ANNOUNCEMENT']}
 							wrapperClassName="trade_post_icon"
-						/>
+						/>}
 					</div>
 					<div>
 						<div className="post_header">{title}</div>
@@ -34,9 +40,9 @@ export const NotificationItem = ({
 							<div className="notifications_list-item-title">{type}</div>
 						)} */}
 						<div className="post-content">
-							<div className="notifications_list-item-timestamp">
+							{created_at && <div className="notifications_list-item-timestamp">
 								{moment(created_at).format('MMMM DD, YYYY')}
-							</div>
+							</div>}
 							<div
 								className="notifications_list-item-text"
 								dangerouslySetInnerHTML={createMarkup(message)}
@@ -60,20 +66,21 @@ export const NotificationItem = ({
 };
 
 // TODO create announcement item style
-const NotificationsList = ({ ICONS = {}, announcements, getAnnouncement }) => {
+const NotificationsList = ({ ICONS = {}, announcements, getAnnouncement, note }) => {
 	useEffect(() => {
 		getAnnouncement();
 		//  TODO: Fix react-hooks/exhaustive-deps
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
-	if (!announcements.length) {
+	if (!announcements.length && !note) {
 		return <div className="notifications_list-wrapper">No data</div>;
 	}
 	return (
 		<div className="notifications_list-wrapper">
-			{announcements.map(({ id, ...rest }, index) => (
+			{note ? <NotificationItem key="admin_note" ICONS={ICONS} type="VERIFICATION_WARNING" message={note} /> : null}
+			{announcements.length ? announcements.map(({ id, ...rest }, index) => (
 				<NotificationItem key={id} ICONS={ICONS} {...rest} />
-			))}
+			)) : null}
 		</div>
 	);
 };
@@ -81,6 +88,7 @@ const NotificationsList = ({ ICONS = {}, announcements, getAnnouncement }) => {
 const mapStateToProps = (store) => ({
 	activeLanguage: store.app.language,
 	announcements: store.app.announcements,
+	note: store.user.note
 });
 
 const mapDispatchToProps = (dispatch) => ({
