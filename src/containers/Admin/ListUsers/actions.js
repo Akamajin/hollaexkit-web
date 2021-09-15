@@ -21,3 +21,11 @@ export const flagUser = (values) => {
 	};
 	return requestAuthenticated(`/admin/flag-user/`, options);
 };
+
+export const createUserAsAdmin = (values) => {
+	const options = {
+		method: 'POST',
+		body: JSON.stringify(values),
+	};
+	return requestAuthenticated(`/admin/create-user/`, options);
+};

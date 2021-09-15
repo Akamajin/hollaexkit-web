@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { RightOutlined } from '@ant-design/icons';
 import { Icon as LegacyIcon } from '@ant-design/compatible';
-import { Table, Spin, Button } from 'antd';
+import { Table, Spin, Button, notification, Modal } from 'antd';
+import NewUserForm from './NewUserForm';
 import { Link } from 'react-router';
 import { formatCurrency } from '../../../utils/index';
 import moment from 'moment';
@@ -28,6 +29,7 @@ class FullListUsers extends Component {
 			limit: 50,
 			currentTablePage: 1,
 			isRemaining: true,
+			showAddUserModal: false
 		};
 	}
 
@@ -79,7 +81,16 @@ class FullListUsers extends Component {
 		}
 		this.setState({ currentTablePage: count });
 	};
-
+	handleCreateNewUser = () => {
+		this.setState({showAddUserModal: true})
+	}
+	onAddUserSuccess = () => {
+		notification['success']({
+			message: 'Success',
+			description: 'Data saved successfully.',
+		});
+		this.requestFullUsers(this.state.page, this.state.limit);
+	};
 	render() {
 		const renderLink = (value) => (
 			<Button
@@ -149,7 +160,7 @@ class FullListUsers extends Component {
 			);
 		};
 
-		const { users, loading, error, currentTablePage } = this.state;
+		const { users, loading, error, currentTablePage, showAddUserModal } = this.state;
 		// const { coins } = this.props;
 		// const HEADERS = generateHeaders(coins);
 		return (
@@ -160,12 +171,8 @@ class FullListUsers extends Component {
 					<div>
 						{error && <p>-{error}-</p>}
 						<div>
-							<span
-								className="pointer"
-								onClick={() => this.props.handleDownload({})}
-							>
-								Download table
-							</span>
+							<span className="pointer mr-5" onClick={() => this.props.handleDownload({})} >Download Table</span>
+							<span className="pointer" onClick={() => this.handleCreateNewUser({})} >New User</span>
 						</div>
 						<Table
 							className="blue-admin-table"
@@ -181,6 +188,17 @@ class FullListUsers extends Component {
 								onChange: this.pageChange,
 							}}
 						/>
+						<Modal visible={showAddUserModal} footer={null} onCancel={()=>this.setState({showAddUserModal: false})}>
+							<div className="user-data-form">
+								<div className="d-flex align-items-center mb-3">
+									<h3>{`Add user`}</h3>
+								</div>
+								<NewUserForm
+									onChangeSuccess={()=>this.onAddUserSuccess()}
+									handleClose={()=>this.setState({showAddUserModal: false})}
+								/>
+							</div>
+						</Modal>
 					</div>
 				)}
 			</div>
