@@ -397,40 +397,14 @@ class Trade extends PureComponent {
 				) : (
 					<div className={classnames('trade-container', 'd-flex')}>
 						<EventListener target="window" onResize={this.onResize} />
-						<div
-							className={classnames(
-								'trade-col_main_wrapper',
-								'flex-column',
-								'd-flex',
-								'f-1',
-								'overflow-x'
-							)}
-						>
-							<div
-								className={classnames(
-									'trade-main_content',
-									'flex-auto',
-									'd-flex'
-								)}
-							>
-								<TradeBlock
-									stringId="CHART"
-									title={STRINGS['CHART']}
-									setRef={this.setChartRef}
-									className="f-1 overflow-x"
-									pairData={pairData}
-									pair={pair}
-								>
+						<div className={classnames('trade-main_content','d-flex')}>
+								<TradeBlock stringId="CHART" title={STRINGS['CHART']} setRef={this.setChartRef} className="f-1 overflow-x" pairData={pairData} pair={pair}>
 									{pair && chartHeight > 0 && (
-										<TVChartContainer
-											activeTheme={activeTheme}
-											symbol={symbol}
-											// tradeHistory={tradeHistory}
-											pairData={pairData}
-										/>
+										<TVChartContainer activeTheme={activeTheme}	symbol={symbol}	pairData={pairData} />
 									)}
 								</TradeBlock>
-							</div>
+						</div>
+						<div className={classnames('trade-col_main_wrapper', 'flex-column',	'd-flex', 'f-1', 'overflow-x')}>
 							<div
 								className={classnames(
 									'trade-tabs_content',
@@ -452,14 +426,7 @@ class Trade extends PureComponent {
 								/>
 							</div>
 						</div>
-						<div
-							className={classnames(
-								'trade-col_side_wrapper',
-								'flex-column',
-								'd-flex',
-								'apply_rtl'
-							)}
-						>
+						<div className={classnames('trade-col_side_wrapper','d-flex','apply_rtl')}>
 							<TradeBlock
 								stringId="ORDERBOOK"
 								isLoggedIn={isLoggedIn()}
@@ -477,16 +444,6 @@ class Trade extends PureComponent {
 							>
 								<TradeHistory pairData={pairData} language={activeLanguage} />
 							</TradeBlock>
-						</div>
-
-						<div
-							className={classnames(
-								'trade-col_action_wrapper',
-								'flex-column',
-								'd-flex',
-								'apply_rtl'
-							)}
-						>
 							<TradeBlock
 								stringId="ORDER_ENTRY"
 								title={STRINGS['ORDER_ENTRY']}

@@ -1,8 +1,12 @@
 .trade-container {
 	flex: 1;
+	flex-wrap: wrap;
 	.dialog-link {
 		color: $colors-notifications-blue;
 		padding: 0 $terms_label--padding;
+	}
+	.trade-main_content {
+		flex: 1 0 100%;
 	}
 	.trade-col_main_wrapper {
 		.trade-main_content {
@@ -27,15 +31,16 @@
 	}
 
 	.trade-col_side_wrapper {
-		flex: 0;
-		min-width: $side-column--width;
-		max-width: $side-column--width;
+		flex: 1;
+		flex-wrap: wrap;
+		/*min-width: $side-column--width;1/
+		/*max-width: $side-column--width;*/
 		.trade_block-wrapper {
 			max-height: calc(49vh + 5rem) !important;
 		}
 
 		> div {
-			flex: 1;
+			flex: 1 1 250px;
 		}
 	}
 
@@ -149,6 +154,7 @@
 }
 
 @media (min-width: 1920px) {
+	/*
 	.trade-container {
 		.trade-col_side_wrapper {
 			min-width: $side-column--width-lg;
@@ -158,7 +164,7 @@
 			min-width: $order_entry-column--width-lg;
 			max-width: $order_entry-column--width-lg;
 		}
-	}
+	}*/
 }
 @media screen and (min-width: 1920px) {
 	.trade-container {
@@ -173,6 +179,7 @@
 }
 
 @media screen and (max-width: 1096px) {
+	/*
 	.trade-container {
 		.trade-col_side_wrapper {
 			min-width: $side-column--width-sm;
@@ -182,5 +189,5 @@
 			min-width: $order_entry-column--width-sm;
 			max-width: $order_entry-column--width-sm;
 		}
-	}
+	}*/
 }
