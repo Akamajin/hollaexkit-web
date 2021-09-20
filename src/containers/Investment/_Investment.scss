@@ -34,11 +34,14 @@
 			width: 35px;
 			margin-left: 5px;
 		}
-		input {
+		.amount-input {
 			flex: 1;
 			border-radius: 5px;
 			padding-left: 8px;
 			color: #202020;
+		}
+		.ant-radio-group {
+			margin: 0 0 5px;
 		}
 	}
 }
@@ -63,7 +66,7 @@
 	.invest-card {
 		flex: 1;
 		position: relative;
-		margin: 5px;
+		margin: 0 5px 30px 5px;
 		background-color: #333333;
 		padding: 15px;
 		border-radius: 7px;
@@ -114,7 +117,7 @@
 			position: absolute;
 			left: 0;
 			right: 0;
-			bottom: -28px;
+			bottom: -25px;
 			text-align: center;
 			color: #727272;
 		}
@@ -123,6 +126,17 @@
 .investment-plans-title {
 	margin: 20px 0;
 	text-align: center;
+}
+.dark-theme .withdraw-box {
+	.ant-radio-wrapper {
+		color: #e1e2d8;
+	}
+	.ant-radio-inner {
+		background-color: #fff;
+		&:after {
+			background-color: #000;
+		}
+	}
 }
 .white-theme .investment-plans-title {
 	color: #404040;

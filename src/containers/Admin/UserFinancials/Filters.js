@@ -10,7 +10,7 @@ export const Filters = ({
 	loading,
 	formData
 }) => {
-	const allowSubmit = !loading && formData.amount && ((formData.action === 'Initial Deposit' && formData.interest_rate) || (formData.action !== 'Initial Deposit'));
+	const allowSubmit = !loading && formData.amount && ((formData.action === 'Capital Investment' && formData.interest_rate) || (formData.action !== 'Capital Investment'));
 	return (
 		<div>
 			{/*<Alert
@@ -29,13 +29,13 @@ export const Filters = ({
 			<div className="filters-wrapper">
 				<div className="filters-wrapper-filters d-flex flex-direction-row">
 					<SelectValue
-						defaultValue={'Initial Deposit'}
+						defaultValue={'Capital Investment'}
 						onSelect={onChange('action')}
 						className={'adjacent-fields pl-2'}
 						label='Action'
 						placeholder='Action'
 						options={[
-							{ value: 'Initial Deposit', text: 'Initial Deposit' },
+							{ value: 'Capital Investment', text: 'Capital Investment' },
 							{ value: 'Interest', text: 'Interest' },
 							{ value: 'Withdraw', text: 'Withdraw' },
 						]}
@@ -46,7 +46,7 @@ export const Filters = ({
 						className={'adjacent-fields pl-2'}
 						placeholder="Amount"
 					/>
-					{formData.action === 'Initial Deposit' ? <FilterInput
+					{formData.action === 'Capital Investment' ? <FilterInput
 						onChange={onChange('interest_rate')}
 						label={'Interest Rate'}
 						className={'adjacent-fields pl-2'}

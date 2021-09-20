@@ -13,7 +13,7 @@ class UserFinancials extends Component {
 		loading: true,
 		tableData: [],
 		formData: {
-			action: 'Initial Deposit'
+			action: 'Capital Investment'
 		},
 		isOpen: false
 	};
@@ -59,7 +59,7 @@ class UserFinancials extends Component {
 				render: (id,rowData) => (
 					<div>
 						<Button type="primary" onClick={() => this.requestDelete(id,this)} className="mr-1" style={{backgroundColor: "#ff0000"}} >Delete</Button>
-						{rowData.action === "Withdraw Request" ? <Button type="primary" onClick={() => this.acceptWithdraw(id,this)} style={{backgroundColor: "#008e00"}} >Accept Withdraw</Button> : null }
+						{rowData.action === "Withdraw (Pending)" || rowData.action === "Withdraw Investment (Pending)" ? <Button type="primary" onClick={() => this.acceptWithdraw(id,rowData.action)} style={{backgroundColor: "#008e00"}} >Accept Withdraw</Button> : null }
 					</div>
 				)
 			},
@@ -73,7 +73,7 @@ class UserFinancials extends Component {
 				formData[key] = moment(value).format();
 			} else {
 				formData[key] = value;
-				if (key === 'action' && value !== 'Initial Deposit') delete formData.interest_rate;
+				if (key === 'action' && value !== 'Capital Investment') delete formData.interest_rate;
 			}
 		} else {
 			delete formData[key];
@@ -89,7 +89,7 @@ class UserFinancials extends Component {
 		const data = { user_id: this.props.userData.id, ...formData }
 		newFinanacialAction(data).then(res=>{
 			this.updateTableData()
-			this.setState({formData:{action: 'Initial Deposit'}})
+			this.setState({formData:{action: 'Capital Investment'}})
 		}).catch((err) => {
 			console.log(err.response)
 		})
@@ -118,10 +118,10 @@ class UserFinancials extends Component {
 		});
 	}
 
-	acceptWithdraw = (id) => {
-		updateBalanceRow({id, action: "Withdraw"}).then(res=>{
+	acceptWithdraw = (id, action) => {
+		updateBalanceRow({id, action: action.replace(' (Pending)', '')}).then(res=>{
 			this.updateTableData()
-			this.setState({formData:{action: 'Initial Deposit'}})
+			this.setState({formData:{action: 'Capital Investment'}})
 		}).catch((err) => {
 			console.log(err.response)
 		})
@@ -145,8 +145,11 @@ class UserFinancials extends Component {
 			let interest = 0
 			const tableData = res.data.map(dr => {
 				const drAmount = dr.amount * 100
-				if (dr.action === "Initial Deposit") {
+				if (dr.action === "Capital Investment") {
 					baseDeposit += drAmount
+				} else if (dr.action === "Withdraw Investment")  {
+					baseDeposit -= drAmount
+					dr.amount = -drAmount/100
 				} else if (dr.action === "Interest")  {
 					interest += drAmount
 				} else if (dr.action === "Withdraw")  {

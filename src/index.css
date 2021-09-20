@@ -1483,11 +1483,13 @@ table th {
     .investment-container .withdraw-box button {
       width: 35px;
       margin-left: 5px; }
-    .investment-container .withdraw-box input {
+    .investment-container .withdraw-box .amount-input {
       flex: 1;
       border-radius: 5px;
       padding-left: 8px;
       color: #202020; }
+    .investment-container .withdraw-box .ant-radio-group {
+      margin: 0 0 5px; }
 
 .invstmnt-table-actions {
   display: flex;
@@ -1508,7 +1510,7 @@ table th {
   .investment-plans .invest-card {
     flex: 1;
     position: relative;
-    margin: 5px;
+    margin: 0 5px 30px 5px;
     background-color: #333333;
     padding: 15px;
     border-radius: 7px; }
@@ -1551,13 +1553,21 @@ table th {
       position: absolute;
       left: 0;
       right: 0;
-      bottom: -28px;
+      bottom: -25px;
       text-align: center;
       color: #727272; }
 
 .investment-plans-title {
   margin: 20px 0;
   text-align: center; }
+
+.dark-theme .withdraw-box .ant-radio-wrapper {
+  color: #e1e2d8; }
+
+.dark-theme .withdraw-box .ant-radio-inner {
+  background-color: #fff; }
+  .dark-theme .withdraw-box .ant-radio-inner:after {
+    background-color: #000; }
 
 .white-theme .investment-plans-title {
   color: #404040; }
