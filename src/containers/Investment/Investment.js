@@ -14,7 +14,7 @@ class Investment extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			capitalInvestment: 0,
+			totalCapital: 0,
 			interest: 0,
 			pendingWithdraws: 0,
 			pendingCIWithdraws: 0,
@@ -44,7 +44,7 @@ class Investment extends Component {
 	}
 
 	reqWithdraw () {
-		const { activeWithdrawForm, interest, withdrawAmount, capitalInvestment, pendingWithdraws, pendingCIWithdraws } = this.state
+		const { activeWithdrawForm, interest, withdrawAmount, totalCapital, pendingWithdraws, pendingCIWithdraws } = this.state
 		const amount = Number(withdrawAmount)
 		
 		if (activeWithdrawForm === 'Interest') {
@@ -53,7 +53,7 @@ class Investment extends Component {
 				createBalanceRowByUser({action: 'Withdraw (Pending)', amount }).then(()=>{this.updateData()})
 			}
 		} else {
-			if (amount > 0 && amount <= capitalInvestment - pendingCIWithdraws) {
+			if (amount > 0 && amount <= totalCapital - pendingCIWithdraws) {
 				this.setState({loading: true})
 				createBalanceRowByUser({action: 'Withdraw Investment (Pending)', amount }).then(()=>{this.updateData()})
 			}
@@ -61,8 +61,8 @@ class Investment extends Component {
 	}
 
 	handleInputChange (e, target) {
-		const {interest, pendingWithdraws, capitalInvestment, pendingCIWithdraws} = this.state
-		const diff = target === 'Interest' ? interest - pendingWithdraws : capitalInvestment - pendingCIWithdraws
+		const {interest, pendingWithdraws, totalCapital, pendingCIWithdraws} = this.state
+		const diff = target === 'Interest' ? interest - pendingWithdraws : totalCapital - pendingCIWithdraws
 		const re = /^[0-9]*\.?[0-9]?$/;
 		let val = e.target.value;
 		if (re.test(val) && Number(val) <= diff) this.setState({withdrawAmount: val})
@@ -70,42 +70,87 @@ class Investment extends Component {
 
 	updateData () {
 		this.setState({loading: true})
-		getBalances().then(result => {
-			let capitalInvestment = 0
+		getBalances().then(res => {
+			let mode = ''
+			let totalCapital = 0
 			let interest = 0
+			let withdrawedInterest = 0
+			let deduction = 0
 			let pendingWithdraws = 0
 			let pendingCIWithdraws = 0
-			let tableData = []
-			result.data.data.map(dt=>{
+			const tableData = res.data.data.map(dt=>{
 				const dtAmount = dt.amount * 100
-				if (dt.action === "Capital Investment") {
-					capitalInvestment += dtAmount
+				if (dt.action === "Capital Investment (Fixed)") {
+					totalCapital += dtAmount
+					mode = "fixed"
+				} else if (dt.action === "Capital Investment (Decreasing)") {
+					totalCapital += dtAmount
+					mode = "decreasing"
+				} else if (dt.action === "Capital Increase") {
+					totalCapital += dtAmount
+				} else if (dt.action === "Capital Deduction") {
+					deduction += dtAmount
 				} else if (dt.action === "Withdraw Investment") {
-					capitalInvestment -= dtAmount
+					totalCapital -= dtAmount
+					dt.amount = -dtAmount/100
 				} else if (dt.action === "Withdraw Investment (Pending)") {
 					pendingCIWithdraws += dtAmount
 				} else if (dt.action === "Interest") {
 					interest += dtAmount
 				} else if (dt.action === "Withdraw") {
-					interest -= dtAmount
+					withdrawedInterest += dtAmount
+					dt.amount = -dtAmount/100
 				} else if (dt.action === "Withdraw (Pending)") {
 					pendingWithdraws += dtAmount
 				}
-				tableData.push(dt)
+				return dt
 			})
 			this.setState({
-				capitalInvestment: capitalInvestment/100,
-				interest: interest/100,
 				tableData,
+				totalCapital: totalCapital/100,
+				interest: interest/100,
+				withdrawedInterest: withdrawedInterest/100,
+				deduction: deduction/100,
 				pendingWithdraws: pendingWithdraws/100,
 				pendingCIWithdraws: pendingCIWithdraws/100,
+				mode,
 				loading: false
 			})
 		})
 	}
 
+	getActionIcon (action) {
+		let icon = null
+		switch (action) {
+			case "Withdraw Investment":
+			case "Capital Deduction":
+				icon = <svg viewBox="0 0 1024 1024" focusable="false" data-icon="caret-down" width="1em" height="1em" fill="#ed1c24" aria-hidden="true"><path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"></path></svg>
+				break;
+			case "Interest":
+				icon = <div className="small-icon" style={{color: "#2ccd2c"}} >$</div>
+				break;
+			case "Capital Increase":
+				icon = <svg viewBox="0 0 1024 1024" focusable="false" data-icon="caret-up" width="1em" height="1em" fill="#2ccd2c" aria-hidden="true"><path d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"></path></svg>
+				break;
+			case "Capital Investment (Fixed)":
+			case "Capital Investment (Decreasing)":
+				icon = <div className="small-icon" style={{color: "#027fff"}} >$</div>
+				break;
+			case "Withdraw (Pending)":
+				icon = <div className="small-icon" style={{color: "#f9b800"}} >⊙</div>
+				break;
+			case "Withdraw Investment (Pending)":
+				icon = <div className="small-icon" style={{color: "#f9b800"}} >⊛</div>
+				break;
+			case "Withdraw":
+				icon = <div className="small-icon" style={{color: "#ed1c24"}} >$</div>
+			
+		}
+		return icon
+	}
+
 	render() {
-		const { capitalInvestment, interest, tableData, withdrawAmount, pendingWithdraws, pendingCIWithdraws, loading, confirmMode, plans, activeWithdrawForm } = this.state;
+		const { tableData, mode, totalCapital, interest, withdrawedInterest, deduction, pendingWithdraws, pendingCIWithdraws, withdrawAmount, loading, confirmMode, plans, activeWithdrawForm } = this.state;
 		const { icons: ICONS } = this.props;
 		if (loading) {
 			return (
@@ -116,9 +161,9 @@ class Investment extends Component {
 		}
 		let activeCard = 0
 		plans.map(card=>{
-			if (capitalInvestment>=card.minInvest) activeCard = card.minInvest
+			if (totalCapital>=card.minInvest) activeCard = card.minInvest
 		})
-		const availableWithdrawAmount = activeWithdrawForm === "Interest" ? interest-pendingWithdraws : capitalInvestment-pendingCIWithdraws
+		const availableWithdrawAmount = activeWithdrawForm === "Interest" ? interest-withdrawedInterest-pendingWithdraws : totalCapital-deduction-pendingCIWithdraws
 		return (
 			<div className="apply_rtl">
 				<div className="presentation_container apply_rtl wallet-wrapper">
@@ -128,12 +173,13 @@ class Investment extends Component {
 						iconPath={ICONS['QUICK_TRADE_SUCCESSFUL']}
 						textType="title"
 					/>
-					{capitalInvestment ? <div className="investment-container">
+					{totalCapital ? <div className="investment-container">
 						<div className="inv-overview">
 							<div>
-								<div>Base Deposit: ${capitalInvestment}</div>
-								<div>Interests: ${interest}</div>
-								<div>Total: ${capitalInvestment + interest}</div>
+								<div>Total Capital: ${totalCapital}</div>
+								{mode === "decreasing" ? <div>Remained Capital: ${totalCapital - deduction}</div> : null}
+								<div>Withdrawable Amount: ${interest - withdrawedInterest}</div>
+								<div>Total Interests (Till Now): ${interest}</div>
 							</div>
 							<div className="withdraw-box">
 								<div className="mb-1">Request Withdraw (${availableWithdrawAmount} max)</div>
@@ -157,10 +203,10 @@ class Investment extends Component {
 								</tr>
 							</thead>
 							<tbody>
-								{tableData.map(td=>(
-								<tr key={td.created_at}>
+								{tableData.map((td, index)=>(
+								<tr key={`tr${index}`}>
 									<td>{moment(td.created_at).format("YYYY-MM-DD")}</td>
-									<td>{td.action}</td>
+									<td>{this.getActionIcon(td.action)}{td.action}</td>
 									<td>{td.action === "Withdraw" || td.action === "Withdraw Investment" ? "-" : null}{td.amount}</td>
 									<td>{td.action === "Withdraw (Pending)" || td.action === "Withdraw Investment (Pending)" ? <div className="invstmnt-table-actions">
 											{confirmMode !== td.id ? <div>Pending <span className="text-button" onClick={()=>{this.setState({confirmMode: td.id})}}>(Click to cancel)</span></div> : null}

@@ -248,16 +248,6 @@ export const setUsernameStore = (username) => ({
 	},
 });
 
-// export const requestLimits = () => ({
-// 	type: 'REQUEST_LIMITS',
-// 	payload: axios.get('/limits')
-// });
-
-// export const requestFees = () => ({
-// 	type: 'REQUEST_FEES',
-// 	payload: axios.get('/fees')
-// });
-
 export const createAddress = (crypto, network) => ({
 	type: 'CREATE_ADDRESS',
 	payload: axios.get('/user/create-address', {

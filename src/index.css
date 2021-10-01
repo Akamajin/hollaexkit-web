@@ -1468,6 +1468,14 @@ table th {
     text-align: center; }
   .investment-container .table tbody > tr td:last-child {
     text-align: center; }
+  .investment-container .table tbody > tr svg {
+    vertical-align: middle;
+    margin-right: 2px; }
+  .investment-container .table tbody > tr .small-icon {
+    display: inline-block;
+    margin-right: 2px;
+    width: 1em;
+    text-align: center; }
   .investment-container .table td, .investment-container .table th {
     vertical-align: middle; }
   .investment-container .table span.text-button {
