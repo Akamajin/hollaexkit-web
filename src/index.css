@@ -1520,12 +1520,12 @@ table th {
     position: relative;
     margin: 0 5px 30px 5px;
     background-color: #333333;
-    padding: 15px;
+    padding: 7px;
     border-radius: 7px; }
     .investment-plans .invest-card .ic-header {
       text-align: center;
       background-color: #414141;
-      margin: -15px -15px 0;
+      margin: -7px -7px 0;
       border-radius: 7px 7px 0 0;
       padding-bottom: 1px;
       margin-bottom: 15px;
@@ -1553,6 +1553,9 @@ table th {
     .investment-plans .invest-card ul {
       margin-bottom: 0;
       padding-left: 15px; }
+      @media (min-width: 1097px) {
+        .investment-plans .invest-card ul {
+          padding-left: 25px; } }
     .investment-plans .invest-card.ic-active .ic-header {
       background-color: #f0b90b; }
       .investment-plans .invest-card.ic-active .ic-header .ic-title {
