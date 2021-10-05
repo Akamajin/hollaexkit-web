@@ -192,7 +192,9 @@ class AppBar extends Component {
 					'justify-content-center'
 				)}
 			>
-				
+				<Link to="/">
+					<div className="homeicon-svg" style={{backgroundImage: `url(/assets/logo/logo.svg)`}} 	/>
+				</Link>
 			</MobileBarWrapper>
 		) : (
 			<div

@@ -769,7 +769,7 @@ class App extends Component {
 										/>
 									)}
 								</div>
-								{isMobile && !isHome && (
+								{isMobile && (
 									<div className="app_container-bottom_bar">
 										<SidebarBottom
 											isLogged={isLoggedIn()}
@@ -803,8 +803,8 @@ class App extends Component {
 						)}
 					</div>
 				</div>
-				{isAdmin() && isBrowser && (
-					<OperatorControls initialData={this.props.location} />
+				{isAdmin() && (
+					<OperatorControls initialData={this.props.location} isMobile={isMobile} />
 				)}
 			</ThemeProvider>
 		);

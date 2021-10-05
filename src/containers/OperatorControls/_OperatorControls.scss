@@ -12,10 +12,12 @@ $operator-controls__panel-border-color: #a7a7a7;
 	width: 100vw;
 	transition: all 0.25s ease-out 0s;
 	color: $operator-controls__panel-text-color;
-
 	&.open {
 		bottom: 0;
 		z-index: 10002 !important;
+	}
+	@media (max-width: 720px) {
+		bottom: -44px;
 	}
 }
 
