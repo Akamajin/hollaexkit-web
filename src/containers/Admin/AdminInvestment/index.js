@@ -44,7 +44,6 @@ class AdminInvestment extends Component {
 
 	groupUsers(data, checkboxes) {
 		let groupedUsers = {}
-		//const {} = this.state
 		let plans = checkboxes.map(gp=>gp.value).sort((a, b) => a-b)
 		data.map(investments=>{
 			if (groupedUsers[investments.user.email] === undefined) groupedUsers[investments.user.email] = []
@@ -54,7 +53,11 @@ class AdminInvestment extends Component {
 		for (const key in groupedUsers) {
 			let investment = 0
 			groupedUsers[key].map(usrInvst=>{
-				investment += usrInvst.action === "Capital Investment" ? usrInvst.amount : -usrInvst.amount
+				if (usrInvst.action === 'Capital Investment (Fixed)' ||	usrInvst.action === 'Capital Investment (Decreasing)' || usrInvst.action === 'Capital Increase') {
+					investment += usrInvst.amount
+				} else if (usrInvst.action === 'Withdraw Investment'){
+					investment -= usrInvst.amount
+				}
 			})
 			groupedAndSummed.push({email: key, investment, plan: ''})
 		}
