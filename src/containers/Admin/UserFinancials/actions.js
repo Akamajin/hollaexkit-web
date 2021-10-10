@@ -14,4 +14,4 @@ export const deleteFinanacialById = (id) => axios.post('/admin/delete-user-balan
 
 export const updateBalanceRow = (data) => axios.put('/admin/user-balance', data);
 
-export const calcualteInterests = (id) => axios.post('/admin/calcualte-interests', {user_id: id, calc_all: true});
+export const calcualteInterests = ({user_id, group}) => axios.post('/admin/calcualte-interests', {user_id, group, calc_all: true});

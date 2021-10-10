@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 
 class InvestCard extends Component {
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		const { cardData, isActive } = this.props;
 		return (

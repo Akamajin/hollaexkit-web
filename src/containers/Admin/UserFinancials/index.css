@@ -166,3 +166,33 @@
 .Validate-Dismiss-popup .ant-input {
 	width: 80%;
 }
+.investment-buttons {
+	display: flex;
+	justify-content: space-between;
+}
+.ant-btn-warning {
+    color: #000;
+    background: #ffb240;
+    border: none;
+}
+.ant-btn-warning:hover, .ant-btn-warning:focus {
+	color: #000;
+    background: #ffbb55;
+}
+.ant-btn-secondary {
+	color: #000;
+	border: none;
+}
+.ant-btn-secondary:hover, .ant-btn-secondary:focus {
+	color: #464646;
+}
+.investment-table tr {
+	border-bottom: 1px solid #7070bf;
+}
+.investment-table td, .investment-table th {
+	padding: 3px 5px;
+	min-width: 85px;
+}
+.investment-table td:first-child {
+	min-width: 180px;
+}

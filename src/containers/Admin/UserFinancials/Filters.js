@@ -1,6 +1,6 @@
 import React from 'react';
 import { PlusCircleFilled } from '@ant-design/icons';
-import { Button, Alert } from 'antd';
+import { Button, /*Alert*/ } from 'antd';
 import { SelectValue } from './SelectValues';
 import { FilterInput, FilterDate } from './FilterInput';
 
@@ -8,18 +8,16 @@ export const Filters = ({
 	onChange,
 	onClick,
 	loading,
-	formData,
-	invested
+	formData
 }) => {
 	const allowSubmit = !loading && formData.amount	&& (
 			((formData.action === 'Capital Investment (Fixed)' || formData.action === 'Capital Investment (Decreasing)') && formData.interest_rate)
 			|| (formData.action !== 'Capital Investment (Fixed)' && formData.action !== 'Capital Investment (Decreasing)')
 		);
-	const options = invested ? [
+	const options = [
 		{ value: 'Capital Increase', text: 'Capital Increase' },
 		{ value: 'Interest', text: 'Interest' },
 		{ value: 'Withdraw', text: 'Withdraw' },
-	] : [
 		{ value: 'Capital Investment (Fixed)', text: 'Capital Investment (Fixed)' },
 		{ value: 'Capital Investment (Decreasing)', text: 'Capital Investment (Decreasing)' }
 	]

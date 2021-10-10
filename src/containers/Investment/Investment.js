@@ -144,7 +144,9 @@ class Investment extends Component {
 				break;
 			case "Withdraw":
 				icon = <div className="small-icon" style={{color: "#ed1c24"}} >$</div>
-			
+				break;
+			default:
+				icon = ''
 		}
 		return icon
 	}
@@ -162,6 +164,7 @@ class Investment extends Component {
 		let activeCard = 0
 		plans.map(card=>{
 			if (totalCapital>=card.minInvest) activeCard = card.minInvest
+			return null
 		})
 		const availableWithdrawAmount = activeWithdrawForm === "Interest" ? interest-withdrawedInterest-pendingWithdraws : totalCapital-deduction-pendingCIWithdraws
 		return (

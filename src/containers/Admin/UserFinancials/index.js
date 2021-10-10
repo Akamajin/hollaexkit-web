@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Spin, Table, Button, Modal } from 'antd';
 import { ExclamationCircleFilled } from '@ant-design/icons';
-import { ReactSVG } from 'react-svg';
 import Moment from 'react-moment';
 import { newFinanacialAction, getUserFinancials, deleteFinanacialById, calcualteInterests, updateBalanceRow } from './actions';
-import { STATIC_ICONS } from 'config/icons';
 import { Filters } from './Filters';
 import moment from 'moment';
 import './index.css';
@@ -15,11 +13,15 @@ class UserFinancials extends Component {
 		formData: {
 			action: 'Capital Investment (Fixed)'
 		},
-		isOpen: false
+		financialData: [],
+		isOpen: false,
+		activeGroup: null,
+		groups: {},
+		buttonsForGroups: []
 	};
 
 	componentDidMount () {
-		this.updateTableData()
+		this.fetchData()
 	}
 
 	getBalanceColumn = () => {
@@ -58,7 +60,7 @@ class UserFinancials extends Component {
 				key: 'data',
 				render: (id,rowData) => (
 					<div>
-						<Button type="primary" onClick={() => this.requestDelete(id,this)} className="mr-1" style={{backgroundColor: "#ff0000"}} >Delete</Button>
+						<Button type="primary" onClick={() => this.requestDelete(id)} className="mr-1" style={{backgroundColor: "#ff0000"}} >Delete</Button>
 						{rowData.action === "Withdraw (Pending)" || rowData.action === "Withdraw Investment (Pending)" ? <Button type="primary" onClick={() => this.acceptWithdraw(id,rowData.action)} style={{backgroundColor: "#008e00"}} >Accept Withdraw</Button> : null }
 					</div>
 				)
@@ -81,14 +83,21 @@ class UserFinancials extends Component {
 		this.setState({ formData });
 	};
 
+	findLastGroup () {
+		return Math.max(...this.state.buttonsForGroups.map(bfg => bfg.groupId))
+	}
+
 	addRow = () => {
-		let { formData, invested } = this.state
+		let { formData, activeGroup } = this.state
 		for (const key in formData)
 			if (key !== 'action' && key !== 'created_at')
 				formData[key] = Number(formData[key])
-		const data = { user_id: this.props.userData.id, ...formData }
+		if (formData.action === "Capital Investment (Fixed)" || formData.action === "Capital Investment (Decreasing)")
+			activeGroup = this.findLastGroup() + 1
+		this.setState({activeGroup})
+		const data = { user_id: this.props.userData.id, group: activeGroup, ...formData }
 		newFinanacialAction(data).then(res=>{
-			this.updateTableData()
+			this.fetchData()
 		}).catch((err) => {
 			console.log(err.response)
 		})
@@ -102,92 +111,152 @@ class UserFinancials extends Component {
 		this.setState({ isOpen: false})
 	}
 
-	requestDelete (id,dis) {
-		Modal.confirm({
-			icon: <ExclamationCircleFilled />,
-			content: <div>Are you sure?</div>,
-			onOk() {
-				deleteFinanacialById(id).then((res)=>{
-					dis.updateTableData()
-				}).catch((err)=>{
-					console.log(err.response)
-					
-				})
-			},
-		});
+	requestDelete = (id) => {
+		const {financialData, activeGroup} = this.state
+		const currentGroup = financialData.filter(fd => fd.group === activeGroup)
+		const targetRow = currentGroup.filter(fd => fd.id === id)[0]
+		if ((targetRow.action === 'Capital Investment (Fixed)' || targetRow.action === 'Capital Investment (Decreasing)') && currentGroup.length > 1) {
+			Modal.info({
+				content: <div>This is a core record and cannot be removed. please remove normal records first.</div>,
+			});	
+		} else {
+			const $this = this
+			Modal.confirm({
+				icon: <ExclamationCircleFilled />,
+				content: <div>Are you sure?</div>,
+				onOk() {
+					deleteFinanacialById(id).then((res)=>{
+						$this.fetchData()
+					}).catch((err)=>{
+						console.log(err.response)
+					})
+				},
+			});
+		}
 	}
 
 	acceptWithdraw = (id, action) => {
 		updateBalanceRow({id, action: action.replace(' (Pending)', '')}).then(res=>{
-			this.updateTableData()
+			this.fetchData()
 		}).catch((err) => {
 			console.log(err.response)
 		})
 	};
 
-	requestCalc (dis) {
-		dis.setState({loading: true})
-		
-		calcualteInterests(this.props.userData.id).then(res=>{
-			dis.updateTableData()
-			dis.setState({loading: false})
+	requestCalc = () => {
+		this.setState({loading: true})
+		calcualteInterests({user_id: this.props.userData.id, group: this.state.activeGroup }).then(res=>{
+			this.fetchData()
 		}).catch((err) => {
 			console.log(err.response)
 		})
 	}
 
-	updateTableData = () => {
+	fetchData = () => {
 		this.setState({loading: true})
 		getUserFinancials(this.props.userData.id).then(res=>{
-			let mode = ''
-			let totalCapital = 0
-			let interest = 0
-			let withdrawedInterest = 0
-			let invested = false
-			let deduction = 0
-			const tableData = res.data.map(dr => {
-				const drAmount = dr.amount * 100
-				if (dr.action === "Capital Investment (Fixed)") {
-					totalCapital += drAmount
-					invested = true
-					mode = "fixed"
-				} else if (dr.action === "Capital Investment (Decreasing)") {
-					totalCapital += drAmount
-					invested = true
-					mode = "decreasing"
-				} else if (dr.action === "Capital Increase") {
-					totalCapital += drAmount
-				} else if (dr.action === "Capital Deduction") {
-					deduction += drAmount
-				} else if (dr.action === "Withdraw Investment")  {
-					totalCapital -= drAmount
-					dr.amount = -drAmount/100
-				} else if (dr.action === "Interest")  {
-					interest += drAmount
-				} else if (dr.action === "Withdraw")  {
-					withdrawedInterest += drAmount
-					dr.amount = -drAmount/100
-				}
-				return dr
-			})
-			this.setState({
-				tableData,
-				totalCapital: totalCapital/100,
-				interest: interest/100,
-				withdrawedInterest: withdrawedInterest/100,
-				deduction: deduction/100,
-				loading: false,
-				invested,
-				mode,
-				formData: {
-					action: invested ? "Capital Increase" : "Capital Investment (Fixed)"
-				}
-			})
+			this.setState({loading: false, financialData: res.data}, this.updateTableData)
 		})
 	}
 
+	updateTableData = () => {
+		let {activeGroup, financialData} = this.state
+		let groups = {}
+		let buttonsForGroups = []
+		financialData.map(dr => {
+			const gid = dr.group.toString()
+			if (groups[gid] === undefined) groups[gid] = {}
+			Array.isArray(groups[gid]) ? groups[gid].push(dr) : groups[gid] = [dr]
+			return null
+		})
+		for (const groupId in groups){
+			const baseAction = groups[groupId].filter(gp=> gp.action === 'Capital Investment (Fixed)' || gp.action === 'Capital Investment (Decreasing)')[0]
+			buttonsForGroups.push({groupId: Number(groupId), title: `${groupId} - ${baseAction.action.split(' ')[2].replace('(','').replace(')','')} ($${baseAction.amount}@${baseAction.interest_rate}%)` })
+		}
+		activeGroup = Number(!activeGroup && buttonsForGroups[0] ? buttonsForGroups[0].groupId : activeGroup)
+
+		/* Calculate grand total values*/
+		let grandTotalCapital = 0
+		let grandDeduction = 0
+		let grandInterest = 0
+		let grandWithdrawedInterest = 0
+		
+		financialData.map(dr => {
+			const drAmount = dr.amount * 100
+			if (dr.action === "Capital Investment (Fixed)") {
+				grandTotalCapital += drAmount
+			} else if (dr.action === "Capital Investment (Decreasing)") {
+				grandTotalCapital += drAmount
+			} else if (dr.action === "Capital Increase") {
+				grandTotalCapital += drAmount
+			} else if (dr.action === "Capital Deduction") {
+				grandDeduction += drAmount
+			} else if (dr.action === "Withdraw Investment")  {
+				grandTotalCapital -= drAmount
+			} else if (dr.action === "Interest")  {
+				grandInterest += drAmount
+			} else if (dr.action === "Withdraw")  {
+				grandWithdrawedInterest += drAmount
+			}
+			return dr
+		})
+		/* End calculate grand total values*/
+
+		let currentGroupData = financialData.filter(d=>d.group===activeGroup)
+
+		let mode = ''
+		let totalCapital = 0
+		let interest = 0
+		let withdrawedInterest = 0
+		let deduction = 0
+		const tableData = currentGroupData.map(dr => {
+			const drAmount = dr.amount * 100
+			if (dr.action === "Capital Investment (Fixed)") {
+				totalCapital += drAmount
+				mode = "fixed"
+			} else if (dr.action === "Capital Investment (Decreasing)") {
+				totalCapital += drAmount
+				mode = "decreasing"
+			} else if (dr.action === "Capital Increase") {
+				totalCapital += drAmount
+			} else if (dr.action === "Capital Deduction") {
+				deduction += drAmount
+			} else if (dr.action === "Withdraw Investment")  {
+				totalCapital -= drAmount
+				dr.amount = drAmount/100
+			} else if (dr.action === "Interest")  {
+				interest += drAmount
+			} else if (dr.action === "Withdraw")  {
+				withdrawedInterest += drAmount
+				dr.amount = drAmount/100
+			}
+			return dr
+		})
+		this.setState({
+			tableData,
+			totalCapital: totalCapital/100,
+			interest: interest/100,
+			withdrawedInterest: withdrawedInterest/100,
+			deduction: deduction/100,
+
+			grandTotalCapital: grandTotalCapital/100,
+			grandDeduction: grandDeduction/100,
+			grandInterest: grandInterest/100,
+			grandWithdrawedInterest: grandWithdrawedInterest/100,
+
+			loading: false,
+			mode,
+			groups,
+			buttonsForGroups,
+			activeGroup
+		})
+	}
+	setActiveGroup(id) {
+		this.setState({activeGroup: id},this.updateTableData)
+	}
+
 	render() {
-		const { loading, tableData, isOpen, formData, totalCapital, interest, invested, mode, deduction, withdrawedInterest } = this.state;
+		const { loading, buttonsForGroups, activeGroup, tableData, isOpen, formData, totalCapital, interest, mode, deduction, withdrawedInterest, grandTotalCapital, grandDeduction, grandInterest, grandWithdrawedInterest} = this.state;
 		const BALANCE_COLUMN = this.getBalanceColumn();
 
 		if (loading) {
@@ -200,20 +269,50 @@ class UserFinancials extends Component {
 
 		return (
 			<div className="f-1 admin-user-container admin-financials-wrapper">
-				<div className="d-flex align-items-center mb-4">
+				<div className="mb-4">
+					<h3>Investment</h3>
+					<table className="investment-table">
+						<thead>
+							<tr>
+								<td></td>
+								<td>Current</td>
+								<td>Grand Total</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Total Capital</td>
+								<th>${totalCapital}</th>
+								<th>${grandTotalCapital}</th>
+							</tr>
+							<tr>
+								<td>Remained Capital</td>
+								<th>{mode === "decreasing" ? '$' + (totalCapital - deduction) : '-'}</th>
+								<th>{'$' + (grandTotalCapital - grandDeduction)}</th>
+							</tr>
+							<tr>
+								<td>Withdrawable Amount</td>
+								<th>${interest - withdrawedInterest}</th>
+								<th>${grandInterest - grandWithdrawedInterest}</th>
+							</tr>
+							<tr>
+								<td>Total Interests (Till Now)</td>
+								<th>${interest}</th>
+								<th>${grandInterest}</th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div className="investment-buttons">
 					<div>
-						<ReactSVG src={STATIC_ICONS['USER_SECTION_WALLET']} className="admin-wallet-icon" />
+						{buttonsForGroups.map(grp =><button className={`ant-btn ant-btn-secondary ${activeGroup === grp.groupId ? 'ant-btn-warning' : ''} mr-3`} key={grp.groupId} onClick={()=>this.setActiveGroup(grp.groupId)}>{grp.title}</button>)}
 					</div>
 					<div>
-						<h3>Investment</h3>
-						<div>Total Capital: <b>${totalCapital}</b></div>
-						{mode === "decreasing" ? <div>Remained Capital: <b>${totalCapital - deduction}</b></div> : null}
-						<div>Withdrawable Amount: <b>${interest - withdrawedInterest}</b></div>
-						<div>Total Interests (Till Now): <b>${interest}</b></div>
+						<button className="ant-btn ant-btn-primary mr-3" onClick={()=>this.requestCalc()} >Calcualte interests</button>
+						<button className="ant-btn ant-btn-secondary" onClick={()=>this.fetchData()} >Refresh</button>
 					</div>
 				</div>
-				<button className="ant-btn ant-btn-primary mr-3" onClick={()=>this.requestCalc(this)} >Calcualte interests</button>
-				<button className="ant-btn ant-btn-secondary" onClick={()=>this.updateTableData()} >Refresh</button>
+				
 				<hr />
 				<Filters
 					formData={formData}
@@ -221,7 +320,6 @@ class UserFinancials extends Component {
 					onClick={this.addRow}
 					loading={false}
 					fetched={true}
-					invested={invested}
 				/>
 				<Table
 					columns={BALANCE_COLUMN}

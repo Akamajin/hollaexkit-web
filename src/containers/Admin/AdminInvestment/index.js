@@ -29,7 +29,7 @@ class AdminInvestment extends Component {
 			if (res) {
 				const investmentPlans = JSON.parse(res.value)
 				let checkboxes = []
-				investmentPlans.map(ip=>{checkboxes.push({ label: ip.title, value: ip.minInvest})})
+				investmentPlans.map(ip=>checkboxes.push({ label: ip.title, value: ip.minInvest}))
 				getUsersInvestment().then(res => {
 					const users = this.groupUsers(res.data, checkboxes)
 					this.setState({investmentPlans, checkboxes, users, loading: false})
@@ -48,6 +48,7 @@ class AdminInvestment extends Component {
 		data.map(investments=>{
 			if (groupedUsers[investments.user.email] === undefined) groupedUsers[investments.user.email] = []
 			groupedUsers[investments.user.email].push({action: investments.action, amount: investments.amount})
+			return null
 		})
 		let groupedAndSummed = []
 		for (const key in groupedUsers) {
@@ -58,6 +59,7 @@ class AdminInvestment extends Component {
 				} else if (usrInvst.action === 'Withdraw Investment'){
 					investment -= usrInvst.amount
 				}
+				return null
 			})
 			groupedAndSummed.push({email: key, investment, plan: ''})
 		}
@@ -66,6 +68,7 @@ class AdminInvestment extends Component {
 				if (gs.investment >= pl) gs.plan = pl
 				return gs
 			})
+			return null
 		})
 		return groupedAndSummed
 	}
@@ -125,7 +128,9 @@ class AdminInvestment extends Component {
 		checkedValues.map(cv=>{
 			users.map(usr=>{
 				if (usr.plan === cv) emailReceivers.push(usr.email)
+				return null
 			})
+			return null
 		})
 		this.setState({emailReceivers});
 	}
