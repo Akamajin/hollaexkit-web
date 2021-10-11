@@ -84,7 +84,8 @@ class UserFinancials extends Component {
 	};
 
 	findLastGroup () {
-		return Math.max(...this.state.buttonsForGroups.map(bfg => bfg.groupId))
+		const {buttonsForGroups} = this.state
+		return buttonsForGroups.length > 0 ? Math.max(...buttonsForGroups.map(bfg => bfg.groupId)) : -1
 	}
 
 	addRow = () => {
