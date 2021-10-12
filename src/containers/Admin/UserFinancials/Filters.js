@@ -8,16 +8,20 @@ export const Filters = ({
 	onChange,
 	onClick,
 	loading,
-	formData
+	formData,
+	invested
 }) => {
 	const allowSubmit = !loading && formData.amount	&& (
 			((formData.action === 'Capital Investment (Fixed)' || formData.action === 'Capital Investment (Decreasing)') && formData.interest_rate)
 			|| (formData.action !== 'Capital Investment (Fixed)' && formData.action !== 'Capital Investment (Decreasing)')
 		);
-	const options = [
+	const options = invested ? [
 		{ value: 'Capital Increase', text: 'Capital Increase' },
 		{ value: 'Interest', text: 'Interest' },
 		{ value: 'Withdraw', text: 'Withdraw' },
+		{ value: 'Capital Investment (Fixed)', text: 'Capital Investment (Fixed)' },
+		{ value: 'Capital Investment (Decreasing)', text: 'Capital Investment (Decreasing)' }
+	] : [
 		{ value: 'Capital Investment (Fixed)', text: 'Capital Investment (Fixed)' },
 		{ value: 'Capital Investment (Decreasing)', text: 'Capital Investment (Decreasing)' }
 	]

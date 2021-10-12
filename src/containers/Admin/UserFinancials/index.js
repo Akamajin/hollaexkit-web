@@ -113,8 +113,9 @@ class UserFinancials extends Component {
 	}
 
 	requestDelete = (id) => {
-		const {financialData, activeGroup} = this.state
+		const {financialData, activeGroup, buttonsForGroups} = this.state
 		const currentGroup = financialData.filter(fd => fd.group === activeGroup)
+		if(currentGroup.length === 1 && buttonsForGroups.length > 0) this.setState({activeGroup: buttonsForGroups[0].groupId})
 		const targetRow = currentGroup.filter(fd => fd.id === id)[0]
 		if ((targetRow.action === 'Capital Investment (Fixed)' || targetRow.action === 'Capital Investment (Decreasing)') && currentGroup.length > 1) {
 			Modal.info({
@@ -257,7 +258,7 @@ class UserFinancials extends Component {
 	}
 
 	render() {
-		const { loading, buttonsForGroups, activeGroup, tableData, isOpen, formData, totalCapital, interest, mode, deduction, withdrawedInterest, grandTotalCapital, grandDeduction, grandInterest, grandWithdrawedInterest} = this.state;
+		const { loading, financialData, buttonsForGroups, activeGroup, tableData, isOpen, formData, totalCapital, interest, mode, deduction, withdrawedInterest, grandTotalCapital, grandDeduction, grandInterest, grandWithdrawedInterest} = this.state;
 		const BALANCE_COLUMN = this.getBalanceColumn();
 
 		if (loading) {
@@ -321,6 +322,7 @@ class UserFinancials extends Component {
 					onClick={this.addRow}
 					loading={false}
 					fetched={true}
+					invested={financialData.length > 0}
 				/>
 				<Table
 					columns={BALANCE_COLUMN}
