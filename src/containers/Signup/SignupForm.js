@@ -24,6 +24,12 @@ export const generateFormFields = (strings, theme, links = {}) => ({
 		label: strings['FORM_FIELDS.EMAIL_LABEL'],
 		placeholder: strings['FORM_FIELDS.EMAIL_PLACEHOLDER'],
 	},
+	full_name: {
+		type: 'text',
+		fullWidth: true,
+		label: 'Name',
+		placeholder: 'Your full name'
+	},
 	password: {
 		type: 'password',
 		validate: [required, password],
