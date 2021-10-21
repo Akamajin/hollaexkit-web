@@ -40,6 +40,7 @@
 	}
 	.withdraw-box{
 		max-width: 340px;
+		margin-left: auto;
 		button {
 			width: 35px;
 			margin-left: 5px;
@@ -53,6 +54,16 @@
 		.ant-radio-group {
 			margin: 0 0 5px;
 		}
+	}
+	.user-investment-table tr {
+		border-bottom: 1px solid #757575;
+	}
+	.user-investment-table td, .investment-table th {
+		padding: 3px 5px;
+		min-width: 85px;
+	}
+	.user-investment-table td:first-child {
+		min-width: 180px;
 	}
 }
 .invstmnt-table-actions {

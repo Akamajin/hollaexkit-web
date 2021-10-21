@@ -193,7 +193,7 @@ class AppBar extends Component {
 				)}
 			>
 				<Link to="/">
-					<div className="homeicon-svg" style={{backgroundImage: `url(/assets/logo/logo.svg)`}} 	/>
+					<div className="homeicon-svg" style={{backgroundImage: `url(/assets/logo/logo.png)`}} 	/>
 				</Link>
 			</MobileBarWrapper>
 		) : (

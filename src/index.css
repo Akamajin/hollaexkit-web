@@ -1487,7 +1487,8 @@ table th {
     .investment-container .inv-overview > div {
       flex: 1; }
   .investment-container .withdraw-box {
-    max-width: 340px; }
+    max-width: 340px;
+    margin-left: auto; }
     .investment-container .withdraw-box button {
       width: 35px;
       margin-left: 5px; }
@@ -1498,6 +1499,13 @@ table th {
       color: #202020; }
     .investment-container .withdraw-box .ant-radio-group {
       margin: 0 0 5px; }
+  .investment-container .user-investment-table tr {
+    border-bottom: 1px solid #757575; }
+  .investment-container .user-investment-table td, .investment-container .investment-table th {
+    padding: 3px 5px;
+    min-width: 85px; }
+  .investment-container .user-investment-table td:first-child {
+    min-width: 180px; }
 
 .invstmnt-table-actions {
   display: flex;

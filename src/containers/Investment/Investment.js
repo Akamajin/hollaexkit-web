@@ -23,7 +23,11 @@ class Investment extends Component {
 			loading: true,
 			confirmMode: -1,
 			plans: [],
-			activeWithdrawForm: "Interest"
+			activeWithdrawForm: "Interest",
+			financialData: [],
+			activeGroup: null,
+			groups: {},
+			buttonsForGroups: []
 		};
 	}
 
@@ -44,18 +48,18 @@ class Investment extends Component {
 	}
 
 	reqWithdraw () {
-		const { activeWithdrawForm, interest, withdrawAmount, totalCapital, pendingWithdraws, pendingCIWithdraws } = this.state
+		const { activeWithdrawForm, interest, withdrawAmount, totalCapital, pendingWithdraws, pendingCIWithdraws, activeGroup } = this.state
 		const amount = Number(withdrawAmount)
 		
 		if (activeWithdrawForm === 'Interest') {
 			if (amount > 0 && amount <= interest - pendingWithdraws) {
 				this.setState({loading: true})
-				createBalanceRowByUser({action: 'Withdraw (Pending)', amount }).then(()=>{this.updateData()})
+				createBalanceRowByUser({action: 'Withdraw (Pending)', amount, group: activeGroup }).then(()=>{this.updateData()})
 			}
 		} else {
 			if (amount > 0 && amount <= totalCapital - pendingCIWithdraws) {
 				this.setState({loading: true})
-				createBalanceRowByUser({action: 'Withdraw Investment (Pending)', amount }).then(()=>{this.updateData()})
+				createBalanceRowByUser({action: 'Withdraw Investment (Pending)', amount, group: activeGroup }).then(()=>{this.updateData()})
 			}
 		}
 	}
@@ -71,51 +75,7 @@ class Investment extends Component {
 	updateData () {
 		this.setState({loading: true})
 		getBalances().then(res => {
-			let mode = ''
-			let totalCapital = 0
-			let interest = 0
-			let withdrawedInterest = 0
-			let deduction = 0
-			let pendingWithdraws = 0
-			let pendingCIWithdraws = 0
-			const tableData = res.data.data.map(dt=>{
-				const dtAmount = dt.amount * 100
-				if (dt.action === "Capital Investment (Fixed)") {
-					totalCapital += dtAmount
-					mode = "fixed"
-				} else if (dt.action === "Capital Investment (Decreasing)") {
-					totalCapital += dtAmount
-					mode = "decreasing"
-				} else if (dt.action === "Capital Increase") {
-					totalCapital += dtAmount
-				} else if (dt.action === "Capital Deduction") {
-					deduction += dtAmount
-				} else if (dt.action === "Withdraw Investment") {
-					totalCapital -= dtAmount
-					dt.amount = -dtAmount/100
-				} else if (dt.action === "Withdraw Investment (Pending)") {
-					pendingCIWithdraws += dtAmount
-				} else if (dt.action === "Interest") {
-					interest += dtAmount
-				} else if (dt.action === "Withdraw") {
-					withdrawedInterest += dtAmount
-					dt.amount = -dtAmount/100
-				} else if (dt.action === "Withdraw (Pending)") {
-					pendingWithdraws += dtAmount
-				}
-				return dt
-			})
-			this.setState({
-				tableData,
-				totalCapital: totalCapital/100,
-				interest: interest/100,
-				withdrawedInterest: withdrawedInterest/100,
-				deduction: deduction/100,
-				pendingWithdraws: pendingWithdraws/100,
-				pendingCIWithdraws: pendingCIWithdraws/100,
-				mode,
-				loading: false
-			})
+			this.setState({loading: false, financialData: res.data.data}, this.updateTableData)
 		})
 	}
 
@@ -151,8 +111,134 @@ class Investment extends Component {
 		return icon
 	}
 
+	setActiveGroup(id) {
+		this.setState({activeGroup: id},this.updateTableData)
+	}
+
+	updateTableData = () => {
+		let {activeGroup, financialData} = this.state
+		let groups = {}
+		let buttonsForGroups = []
+		financialData.map(dr => {
+			const gid = dr.group.toString()
+			if (groups[gid] === undefined) groups[gid] = {}
+			Array.isArray(groups[gid]) ? groups[gid].push(dr) : groups[gid] = [dr]
+			return null
+		})
+		for (const groupId in groups){
+			const baseAction = groups[groupId].filter(gp=> gp.action === 'Capital Investment (Fixed)' || gp.action === 'Capital Investment (Decreasing)')[0]
+			buttonsForGroups.push({groupId: Number(groupId), title: `${groupId} - ${baseAction.action.split(' ')[2].replace('(','').replace(')','')} ($${baseAction.amount}@${baseAction.interest_rate}%)` })
+		}
+		activeGroup = Number(!activeGroup && buttonsForGroups[0] ? buttonsForGroups[0].groupId : activeGroup)
+
+		/* Calculate grand total values*/
+		let grandTotalCapital = 0
+		let grandDeduction = 0
+		let grandInterest = 0
+		let grandWithdrawedInterest = 0
+		
+		financialData.map(dr => {
+			const drAmount = dr.amount * 100
+			if (dr.action === "Capital Investment (Fixed)") {
+				grandTotalCapital += drAmount
+			} else if (dr.action === "Capital Investment (Decreasing)") {
+				grandTotalCapital += drAmount
+			} else if (dr.action === "Capital Increase") {
+				grandTotalCapital += drAmount
+			} else if (dr.action === "Capital Deduction") {
+				grandDeduction += drAmount
+			} else if (dr.action === "Withdraw Investment")  {
+				grandTotalCapital -= drAmount
+			} else if (dr.action === "Interest")  {
+				grandInterest += drAmount
+			} else if (dr.action === "Withdraw")  {
+				grandWithdrawedInterest += drAmount
+			}
+			return dr
+		})
+		/* End calculate grand total values*/
+
+		let currentGroupData = financialData.filter(d=>d.group===activeGroup)
+
+		let mode = ''
+		let totalCapital = 0
+		let interest = 0
+		let withdrawedInterest = 0
+		let deduction = 0
+		let pendingWithdraws = 0
+		let pendingCIWithdraws = 0
+
+		const tableData = currentGroupData.map(dr => {
+			const drAmount = dr.amount * 100
+			if (dr.action === "Capital Investment (Fixed)") {
+				totalCapital += drAmount
+				mode = "fixed"
+			} else if (dr.action === "Capital Investment (Decreasing)") {
+				totalCapital += drAmount
+				mode = "decreasing"
+			} else if (dr.action === "Capital Increase") {
+				totalCapital += drAmount
+			} else if (dr.action === "Capital Deduction") {
+				deduction += drAmount
+			} else if (dr.action === "Withdraw Investment")  {
+				totalCapital -= drAmount
+				dr.amount = drAmount/100
+			} else if (dr.action === "Interest")  {
+				interest += drAmount
+			} else if (dr.action === "Withdraw")  {
+				withdrawedInterest += drAmount
+				dr.amount = drAmount/100
+			} else if (dr.action === "Withdraw Investment (Pending)") {
+				pendingCIWithdraws += drAmount
+			} else if (dr.action === "Withdraw (Pending)") {
+				pendingWithdraws += drAmount
+			}
+			return dr
+		})
+		this.setState({
+			tableData,
+			totalCapital: totalCapital/100,
+			interest: interest/100,
+			withdrawedInterest: withdrawedInterest/100,
+			deduction: deduction/100,
+			pendingWithdraws: pendingWithdraws/100,
+			pendingCIWithdraws: pendingCIWithdraws/100,
+
+			grandTotalCapital: grandTotalCapital/100,
+			grandDeduction: grandDeduction/100,
+			grandInterest: grandInterest/100,
+			grandWithdrawedInterest: grandWithdrawedInterest/100,
+
+			loading: false,
+			mode,
+			groups,
+			buttonsForGroups,
+			activeGroup
+		})
+	}
+
 	render() {
-		const { tableData, mode, totalCapital, interest, withdrawedInterest, deduction, pendingWithdraws, pendingCIWithdraws, withdrawAmount, loading, confirmMode, plans, activeWithdrawForm } = this.state;
+		const {
+			tableData,
+			mode,
+			totalCapital,
+			interest,
+			withdrawedInterest,
+			deduction,
+			pendingWithdraws,
+			pendingCIWithdraws,
+			grandTotalCapital,
+			grandDeduction,
+			grandWithdrawedInterest,
+			grandInterest,
+			withdrawAmount,
+			loading,
+			confirmMode,
+			plans,
+			activeWithdrawForm,
+			buttonsForGroups,
+			activeGroup
+		} = this.state;
 		const { icons: ICONS } = this.props;
 		if (loading) {
 			return (
@@ -178,22 +264,57 @@ class Investment extends Component {
 					/>
 					{totalCapital ? <div className="investment-container">
 						<div className="inv-overview">
+						<table className="user-investment-table">
+							<thead>
+								<tr>
+									<td></td>
+									<td>Current</td>
+									<td>Grand Total</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Total Capital</td>
+									<th>${totalCapital}</th>
+									<th>${grandTotalCapital}</th>
+								</tr>
+								<tr>
+									<td>Remained Capital</td>
+									<th>{mode === "decreasing" ? '$' + (totalCapital - deduction) : '-'}</th>
+									<th>{'$' + (grandTotalCapital - grandDeduction)}</th>
+								</tr>
+								<tr>
+									<td>Withdrawable Interest</td>
+									<th>${interest-withdrawedInterest-pendingWithdraws}</th>
+									<th>-</th>
+								</tr>
+								<tr>
+									<td>Withdrawable Capital</td>
+									<th>${totalCapital-deduction-pendingCIWithdraws}</th>
+									<th>-</th>
+								</tr>
+								<tr>
+									<td>Total Interests (Till Now)</td>
+									<th>${interest}</th>
+									<th>${grandInterest}</th>
+								</tr>
+							</tbody>
+						</table>
+						<div className="withdraw-box">
+							<div className="mb-1">Request Withdraw (${availableWithdrawAmount} max)</div>
+							<RadioGroup onChange={(e)=> {this.setState({activeWithdrawForm: e.target.value, withdrawAmount: '' })}} value={activeWithdrawForm}>
+      						  <Radio value="Interest">Withdraw Interest</Radio>
+      						  <Radio value="Capital">Withdraw Investment</Radio>
+      						</RadioGroup>
+							{ availableWithdrawAmount > 0 ? <div className="d-flex">
+								<input placeholder="Amount..." value={withdrawAmount} onChange={(e) => this.handleInputChange(e,activeWithdrawForm)} className="amount-input"/>
+								<button className="holla-button button-success mdc-button mdc-button--unelevated holla-button-font" onClick={()=>{this.reqWithdraw()}}>Submit</button>
+							</div> : null }
+						</div>
+						</div>
+						<div className="investment-buttons mb-1">
 							<div>
-								<div>Total Capital: ${totalCapital}</div>
-								{mode === "decreasing" ? <div>Remained Capital: ${totalCapital - deduction}</div> : null}
-								<div>Withdrawable Amount: ${interest - withdrawedInterest}</div>
-								<div>Total Interests (Till Now): ${interest}</div>
-							</div>
-							<div className="withdraw-box">
-								<div className="mb-1">Request Withdraw (${availableWithdrawAmount} max)</div>
-								<RadioGroup onChange={(e)=> {this.setState({activeWithdrawForm: e.target.value, withdrawAmount: '' })}} value={activeWithdrawForm}>
-      							  <Radio value="Interest">Withdraw Interest</Radio>
-      							  <Radio value="Capital">Withdraw Investment</Radio>
-      							</RadioGroup>
-								{ availableWithdrawAmount > 0 ? <div className="d-flex">
-									<input placeholder="Amount..." value={withdrawAmount} onChange={(e) => this.handleInputChange(e,activeWithdrawForm)} className="amount-input"/>
-									<button className="holla-button button-success mdc-button mdc-button--unelevated holla-button-font" onClick={()=>{this.reqWithdraw()}}>Submit</button>
-								</div> : null }
+								{buttonsForGroups.map(grp =><button className={`ant-btn ant-btn-secondary ${activeGroup === grp.groupId ? 'ant-btn-warning' : ''} mr-3`} key={grp.groupId} onClick={()=>this.setActiveGroup(grp.groupId)}>{grp.title}</button>)}
 							</div>
 						</div>
 						<table className="table table-striped">
