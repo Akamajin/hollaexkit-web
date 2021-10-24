@@ -57,7 +57,7 @@ export const generateAllIcons = (themes, icons, coin_icons = {}) => {
 				allIcons[theme][coin] = defaultCoinIcon;
 			}
 		});
-		allIcons[theme].EXCHANGE_LOGO = '/assets/logo/logo.png'
+		allIcons[theme].EXCHANGE_LOGO = '/assets/logo/logo.svg'
 		allIcons[theme].EXCHANGE_LOADER = '/assets/loader.gif'
 	});
 	return allIcons;

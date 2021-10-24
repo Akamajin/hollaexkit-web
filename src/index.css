@@ -1482,7 +1482,7 @@ table th {
     color: red;
     cursor: pointer; }
   .investment-container .inv-overview {
-    margin-bottom: 8px;
+    margin-bottom: 15px;
     display: flex; }
     .investment-container .inv-overview > div {
       flex: 1; }
@@ -4891,7 +4891,7 @@ table th {
     padding: 0 8px; }
   .app_bar .app_bar-icon-logo {
     height: auto;
-    width: 164px;
+    width: 185px;
     background-size: contain;
     background-position: left center;
     background-repeat: no-repeat; }
@@ -5291,8 +5291,7 @@ table th {
 
 .home_app_bar, .app_bar {
   background-color: #12161c;
-  color: #fff;
-  padding: 0 17px; }
+  color: #fff; }
 
 .select-option-wrapper .ant-select-item,
 .select-option-wrapper .ant-select-item-option {

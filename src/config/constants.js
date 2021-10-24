@@ -69,8 +69,8 @@ export const SUMMMARY_ICON = {
 	LEVEL_4_DARK: '/assets/summary/level-4-dark.png',
 };
 
-export const HOLLAEX_LOGO = '/assets/logo/logo.png';
-export const HOLLAEX_LOGO_BLACK = '/assets/logo/logo.png';
+export const HOLLAEX_LOGO = '/assets/logo/logo.svg';
+export const HOLLAEX_LOGO_BLACK = '/assets/logo/logo.svg';
 //shbhere
 //export const HOLLAEX_LOGO =
 //	process.env.REACT_APP_LOGO_PATH ||
