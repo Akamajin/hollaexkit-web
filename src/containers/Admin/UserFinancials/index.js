@@ -50,9 +50,13 @@ class UserFinancials extends Component {
 				title: 'Date added',
 				dataIndex: 'created_at',
 				key: 'created_at',
-				render: (created) => (
-					<Moment format="YYYY/MM/DD">{created}</Moment>
-				),
+				render: (created) => <Moment format="YYYY/MM/DD">{created}</Moment>
+			},
+			{
+				title: 'End Date',
+				dataIndex: 'end_date',
+				key: 'end_date',
+				render: (endDate) => endDate ? <Moment format="YYYY/MM/DD">{endDate}</Moment> : ''
 			},
 			{
 				title: 'Delete',
@@ -71,7 +75,7 @@ class UserFinancials extends Component {
 	onChangeParams = (key) => (value) => {
 		const formData = {...this.state.formData};
 		if (value) {
-			if (key === 'created_at') {
+			if (key === 'created_at' || key === 'end_date') {
 				formData[key] = moment(value).format();
 			} else {
 				formData[key] = value;
@@ -91,7 +95,7 @@ class UserFinancials extends Component {
 	addRow = () => {
 		let { formData, activeGroup } = this.state
 		for (const key in formData)
-			if (key !== 'action' && key !== 'created_at')
+			if (key !== 'action' && key !== 'created_at' && key !== 'end_date')
 				formData[key] = Number(formData[key])
 		if (formData.action === "Capital Investment (Fixed)" || formData.action === "Capital Investment (Decreasing)")
 			activeGroup = this.findLastGroup() + 1
@@ -115,7 +119,6 @@ class UserFinancials extends Component {
 	requestDelete = (id) => {
 		const {financialData, activeGroup, buttonsForGroups} = this.state
 		const currentGroup = financialData.filter(fd => fd.group === activeGroup)
-		if(currentGroup.length === 1 && buttonsForGroups.length > 0) this.setState({activeGroup: buttonsForGroups[0].groupId})
 		const targetRow = currentGroup.filter(fd => fd.id === id)[0]
 		if ((targetRow.action === 'Capital Investment (Fixed)' || targetRow.action === 'Capital Investment (Decreasing)') && currentGroup.length > 1) {
 			Modal.info({
@@ -128,7 +131,13 @@ class UserFinancials extends Component {
 				content: <div>Are you sure?</div>,
 				onOk() {
 					deleteFinanacialById(id).then((res)=>{
-						$this.fetchData()
+						if(currentGroup.length === 1 && buttonsForGroups.length > 0) {
+							$this.setState({activeGroup: buttonsForGroups[0].groupId}, ()=>{
+								$this.fetchData()
+							})
+						} else {
+							$this.fetchData()
+						}
 					}).catch((err)=>{
 						console.log(err.response)
 					})

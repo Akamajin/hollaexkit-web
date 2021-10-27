@@ -170,6 +170,43 @@
 	display: flex;
 	justify-content: space-between;
 }
+.investment-buttons button {
+	margin: 0 5px 5px 0;
+}
+.insfcnt-balance {
+	padding: 13px;
+    border: 1px solid #484848;
+    border-radius: 5px;
+    color: #727272;
+}
+.inv-table-wrapper {
+    border: 1px solid #484848;
+    margin: 15px 0 25px;
+    padding: 16px 8px 0 8px;
+    position: relative;
+}
+.inv-table-title {
+	position: absolute;
+    top: -14px;
+    background-color: #202020;
+    padding: 0 10px;
+    font-size: 16px;
+	color: #3cbd07;
+}
+.inv-table-title.itt-orange{
+    color: #ffb240;
+}
+.inv-table-wrapper .table th,
+.inv-table-wrapper .table td {
+	border-bottom: none;
+	border-top: 1px solid #484848;
+}
+.inv-table-wrapper .table th {
+	border-top: none;
+}
+.white-theme .inv-table-title {
+	background-color: #f8f8f8;
+}
 .ant-btn-warning {
     color: #000;
     background: #ffb240;

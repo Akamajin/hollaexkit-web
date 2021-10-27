@@ -63,10 +63,16 @@ export const Filters = ({
 					/> : null}
 					<FilterDate
 						onChange={onChange('created_at')}
-						label={'Date'}
+						label={'Start Date'}
 						className={'adjacent-fields pl-2'}
-						placeholder="Date"
+						placeholder="Start Date"
 					/>
+					{formData.action === 'Capital Investment (Fixed)' || formData.action === 'Capital Investment (Decreasing)' ? <FilterDate
+						onChange={onChange('end_date')}
+						label={'End Date'}
+						className={'adjacent-fields pl-2'}
+						placeholder="End Date"
+					/> : null}
 				</div>
 				<div className="filters-wrapper-buttons pl-2">
 					<Button

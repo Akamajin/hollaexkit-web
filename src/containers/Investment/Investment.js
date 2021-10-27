@@ -19,6 +19,7 @@ class Investment extends Component {
 			pendingWithdraws: 0,
 			pendingCIWithdraws: 0,
 			tableData: [],
+			withdrawalTableData: [],
 			withdrawAmount: '',
 			loading: true,
 			confirmMode: -1,
@@ -127,38 +128,45 @@ class Investment extends Component {
 		})
 		for (const groupId in groups){
 			const baseAction = groups[groupId].filter(gp=> gp.action === 'Capital Investment (Fixed)' || gp.action === 'Capital Investment (Decreasing)')[0]
-			buttonsForGroups.push({groupId: Number(groupId), title: `${groupId} - ${baseAction.action.split(' ')[2].replace('(','').replace(')','')} ($${baseAction.amount}@${baseAction.interest_rate}%)` })
+			buttonsForGroups.push({groupId: Number(groupId), title: `${baseAction.action.split(' ')[2].replace('(','').replace(')','')} ($${baseAction.amount}@${baseAction.interest_rate}%)` })
 		}
 		activeGroup = Number(!activeGroup && buttonsForGroups[0] ? buttonsForGroups[0].groupId : activeGroup)
 
 		/* Calculate grand total values*/
-		let grandTotalCapital = 0
+		let grandCapital = 0
 		let grandDeduction = 0
 		let grandInterest = 0
 		let grandWithdrawedInterest = 0
+		let grandPendingWithdrawals = 0
+		let grandPendingCIWithdrawals = 0
 		
 		financialData.map(dr => {
 			const drAmount = dr.amount * 100
 			if (dr.action === "Capital Investment (Fixed)") {
-				grandTotalCapital += drAmount
+				grandCapital += drAmount
 			} else if (dr.action === "Capital Investment (Decreasing)") {
-				grandTotalCapital += drAmount
+				grandCapital += drAmount
 			} else if (dr.action === "Capital Increase") {
-				grandTotalCapital += drAmount
+				grandCapital += drAmount
 			} else if (dr.action === "Capital Deduction") {
 				grandDeduction += drAmount
 			} else if (dr.action === "Withdraw Investment")  {
-				grandTotalCapital -= drAmount
+				grandCapital -= drAmount
 			} else if (dr.action === "Interest")  {
 				grandInterest += drAmount
 			} else if (dr.action === "Withdraw")  {
 				grandWithdrawedInterest += drAmount
+			} else if (dr.action === "Withdraw (Pending)")  {
+				grandPendingWithdrawals += drAmount
+			} else if (dr.action === "Withdraw Investment (Pending)") {
+				grandPendingCIWithdrawals += drAmount
 			}
 			return dr
 		})
 		/* End calculate grand total values*/
 
-		let currentGroupData = financialData.filter(d=>d.group===activeGroup)
+		let currentGroupData = financialData.filter(d=> (d.group===activeGroup && d.action !== 'Withdraw' && d.action !== 'Withdraw (Pending)'))
+		let withdrawalTableData = financialData.filter(d=> d.action === 'Withdraw' || d.action === 'Withdraw (Pending)')
 
 		let mode = ''
 		let totalCapital = 0
@@ -197,6 +205,7 @@ class Investment extends Component {
 		})
 		this.setState({
 			tableData,
+			withdrawalTableData,
 			totalCapital: totalCapital/100,
 			interest: interest/100,
 			withdrawedInterest: withdrawedInterest/100,
@@ -204,10 +213,12 @@ class Investment extends Component {
 			pendingWithdraws: pendingWithdraws/100,
 			pendingCIWithdraws: pendingCIWithdraws/100,
 
-			grandTotalCapital: grandTotalCapital/100,
+			grandCapital: grandCapital/100,
 			grandDeduction: grandDeduction/100,
 			grandInterest: grandInterest/100,
 			grandWithdrawedInterest: grandWithdrawedInterest/100,
+			grandPendingWithdrawals: grandPendingWithdrawals/100,
+			grandPendingCIWithdrawals: grandPendingCIWithdrawals/100,
 
 			loading: false,
 			mode,
@@ -220,17 +231,20 @@ class Investment extends Component {
 	render() {
 		const {
 			tableData,
+			withdrawalTableData,
 			mode,
 			totalCapital,
 			interest,
-			withdrawedInterest,
 			deduction,
-			pendingWithdraws,
+			/*withdrawedInterest,
+			pendingWithdraws,*/
 			pendingCIWithdraws,
-			grandTotalCapital,
+			grandCapital,
 			grandDeduction,
 			grandWithdrawedInterest,
+			grandPendingWithdrawals,
 			grandInterest,
+			grandPendingCIWithdrawals,
 			withdrawAmount,
 			loading,
 			confirmMode,
@@ -249,10 +263,10 @@ class Investment extends Component {
 		}
 		let activeCard = 0
 		plans.map(card=>{
-			if (totalCapital>=card.minInvest) activeCard = card.minInvest
+			if (grandCapital>=card.minInvest) activeCard = card.minInvest
 			return null
 		})
-		const availableWithdrawAmount = activeWithdrawForm === "Interest" ? interest-withdrawedInterest-pendingWithdraws : totalCapital-deduction-pendingCIWithdraws
+		const availableWithdrawAmount = activeWithdrawForm === "Interest" ? grandInterest-grandWithdrawedInterest-grandPendingWithdrawals : totalCapital-deduction-pendingCIWithdraws
 		return (
 			<div className="apply_rtl">
 				<div className="presentation_container apply_rtl wallet-wrapper">
@@ -262,86 +276,119 @@ class Investment extends Component {
 						iconPath={ICONS['QUICK_TRADE_SUCCESSFUL']}
 						textType="title"
 					/>
-					{totalCapital ? <div className="investment-container">
+					{grandCapital ? <div className="investment-container">
 						<div className="inv-overview">
-						<table className="user-investment-table">
-							<thead>
-								<tr>
-									<td></td>
-									<td>Current</td>
-									<td>Grand Total</td>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>Total Capital</td>
-									<th>${totalCapital}</th>
-									<th>${grandTotalCapital}</th>
-								</tr>
-								<tr>
-									<td>Remained Capital</td>
-									<th>{mode === "decreasing" ? '$' + (totalCapital - deduction) : '-'}</th>
-									<th>{'$' + (grandTotalCapital - grandDeduction)}</th>
-								</tr>
-								<tr>
-									<td>Withdrawable Interest</td>
-									<th>${interest-withdrawedInterest-pendingWithdraws}</th>
-									<th>-</th>
-								</tr>
-								<tr>
-									<td>Withdrawable Capital</td>
-									<th>${totalCapital-deduction-pendingCIWithdraws}</th>
-									<th>-</th>
-								</tr>
-								<tr>
-									<td>Total Interests (Till Now)</td>
-									<th>${interest}</th>
-									<th>${grandInterest}</th>
-								</tr>
-							</tbody>
-						</table>
-						<div className="withdraw-box">
-							<div className="mb-1">Request Withdraw (${availableWithdrawAmount} max)</div>
-							<RadioGroup onChange={(e)=> {this.setState({activeWithdrawForm: e.target.value, withdrawAmount: '' })}} value={activeWithdrawForm}>
-      						  <Radio value="Interest">Withdraw Interest</Radio>
-      						  <Radio value="Capital">Withdraw Investment</Radio>
-      						</RadioGroup>
-							{ availableWithdrawAmount > 0 ? <div className="d-flex">
-								<input placeholder="Amount..." value={withdrawAmount} onChange={(e) => this.handleInputChange(e,activeWithdrawForm)} className="amount-input"/>
-								<button className="holla-button button-success mdc-button mdc-button--unelevated holla-button-font" onClick={()=>{this.reqWithdraw()}}>Submit</button>
-							</div> : null }
-						</div>
+							<table className="user-investment-table">
+								<thead>
+									<tr>
+										<td></td>
+										<td>Current</td>
+										<td>Total</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Total Capital</td>
+										<th>${totalCapital}</th>
+										<th>${grandCapital}</th>
+									</tr>
+									<tr>
+										<td>Remained Capital</td>
+										<th>{mode === "decreasing" ? '$' + (totalCapital - deduction) : '-'}</th>
+										<th>{'$' + (grandCapital - grandDeduction)}</th>
+									</tr>
+									<tr>
+										<td>Withdrawable Interest</td>
+										<th>${grandInterest-grandWithdrawedInterest-grandPendingWithdrawals}</th>
+										<th>${grandInterest-grandWithdrawedInterest-grandPendingWithdrawals}</th>
+									</tr>
+									<tr>
+										<td>Withdrawable Capital</td>
+										<th>${totalCapital-deduction-pendingCIWithdraws}</th>
+										<th>{grandCapital-grandDeduction-grandPendingCIWithdrawals}</th>
+									</tr>
+									<tr>
+										<td>Total Interests (Till Now)</td>
+										<th>${interest}</th>
+										<th>${grandInterest}</th>
+									</tr>
+								</tbody>
+							</table>
+							<div className="withdraw-box">
+								<div className="mb-1">Request Withdraw (${availableWithdrawAmount} max)</div>
+								<RadioGroup onChange={(e)=> {this.setState({activeWithdrawForm: e.target.value, withdrawAmount: '' })}} value={activeWithdrawForm}>
+      							  <Radio value="Interest">Withdraw Interest</Radio>
+      							  <Radio value="Capital">Withdraw Investment</Radio>
+      							</RadioGroup>
+								{ availableWithdrawAmount > 0 ? <div className="d-flex">
+									<input placeholder="Amount..." value={withdrawAmount} onChange={(e) => this.handleInputChange(e,activeWithdrawForm)} className="amount-input"/>
+									<button className="holla-button button-success mdc-button mdc-button--unelevated holla-button-font" onClick={()=>{this.reqWithdraw()}}>Submit</button>
+								</div> : <div className="insfcnt-balance text-center">Insufficient Balance</div> }
+							</div>
 						</div>
 						<div className="investment-buttons mb-1">
 							<div>
-								{buttonsForGroups.map(grp =><button className={`ant-btn ant-btn-secondary ${activeGroup === grp.groupId ? 'ant-btn-warning' : ''} mr-3`} key={grp.groupId} onClick={()=>this.setActiveGroup(grp.groupId)}>{grp.title}</button>)}
+								{buttonsForGroups.map(grp =><button className={`ant-btn ant-btn-secondary ${activeGroup === grp.groupId ? 'ant-btn-warning' : ''}`} key={grp.groupId} onClick={()=>this.setActiveGroup(grp.groupId)}>{grp.title}</button>)}
 							</div>
 						</div>
-						<table className="table table-striped">
-							<thead>
-								<tr>
-									<th>Date</th>
-									<th>Type</th>
-									<th>Amount</th>
-									<th>Status</th>
-								</tr>
-							</thead>
-							<tbody>
-								{tableData.map((td, index)=>(
-								<tr key={`tr${index}`}>
-									<td>{moment(td.created_at).format("YYYY-MM-DD")}</td>
-									<td>{this.getActionIcon(td.action)}{td.action}</td>
-									<td>{td.action === "Withdraw" || td.action === "Withdraw Investment" ? "-" : null}{td.amount}</td>
-									<td>{td.action === "Withdraw (Pending)" || td.action === "Withdraw Investment (Pending)" ? <div className="invstmnt-table-actions">
-											{confirmMode !== td.id ? <div>Pending <span className="text-button" onClick={()=>{this.setState({confirmMode: td.id})}}>(Click to cancel)</span></div> : null}
-											{confirmMode === td.id ? <button className="holla-button button-fail mdc-button mdc-button--unelevated holla-button-font" onClick={()=>{this.cancelWithdrawReq(td.id)}}>I'm sure</button> : null}
-											{confirmMode === td.id ? <button className="holla-button mdc-button mdc-button--unelevated holla-button-font" onClick={()=>{this.setState({confirmMode: -1})}}>No</button> : null}
-										</div>
-									: "Ok"}</td>
-								</tr>
-								))}
-							</tbody>
-						</table>
+						<div className="inv-table-wrapper">
+							<div className="inv-table-title">Investments and Interests</div>
+							<table className="table table-striped">
+								<thead>
+									<tr>
+										<th>Date</th>
+										<th>Type</th>
+										<th>Amount</th>
+										<th>End Date</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									{tableData.map((td, index)=>(
+									<tr key={`tr${index}`}>
+										<td>{moment(td.created_at).format("YYYY-MM-DD")}</td>
+										<td>{this.getActionIcon(td.action)}{td.action}</td>
+										<td>{td.amount}</td>
+										<td>{td.end_date ? moment(td.end_date).format("YYYY-MM-DD") : ''}</td>
+										<td>{td.action === "Withdraw Investment (Pending)" ? <div className="invstmnt-table-actions">
+												{confirmMode !== td.id ? <div>Pending <span className="text-button" onClick={()=>{this.setState({confirmMode: td.id})}}>(Click to cancel)</span></div> : null}
+												{confirmMode === td.id ? <button className="holla-button button-fail mdc-button mdc-button--unelevated holla-button-font" onClick={()=>{this.cancelWithdrawReq(td.id)}}>I'm sure</button> : null}
+												{confirmMode === td.id ? <button className="holla-button mdc-button mdc-button--unelevated holla-button-font" onClick={()=>{this.setState({confirmMode: -1})}}>No</button> : null}
+											</div>
+										: "Ok"}</td>
+									</tr>
+									))}
+								</tbody>
+							</table>
+						</div>
+						<div className="inv-table-wrapper">
+							<div className="inv-table-title itt-orange">Interest Withdrawals</div>
+							<table className="table table-striped">
+								<thead>
+									<tr>
+										<th>Date</th>
+										<th>Type</th>
+										<th>Amount</th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									{withdrawalTableData.map((td, index)=>(
+									<tr key={`tr${index}`}>
+										<td>{moment(td.created_at).format("YYYY-MM-DD")}</td>
+										<td>{this.getActionIcon(td.action)}{td.action}</td>
+										<td>{td.amount}</td>
+										<td>{td.action === "Withdraw (Pending)" || td.action === "Withdraw Investment (Pending)" ? <div className="invstmnt-table-actions">
+												{confirmMode !== td.id ? <div>Pending <span className="text-button" onClick={()=>{this.setState({confirmMode: td.id})}}>(Click to cancel)</span></div> : null}
+												{confirmMode === td.id ? <button className="holla-button button-fail mdc-button mdc-button--unelevated holla-button-font" onClick={()=>{this.cancelWithdrawReq(td.id)}}>I'm sure</button> : null}
+												{confirmMode === td.id ? <button className="holla-button mdc-button mdc-button--unelevated holla-button-font" onClick={()=>{this.setState({confirmMode: -1})}}>No</button> : null}
+											</div>
+										: "Ok"}</td>
+									</tr>
+									))}
+								</tbody>
+							</table>
+						</div>
 					</div> : <div className="investment-container text-center">No Data</div> }
 					<hr />
 					{plans.length ? <h2 className="investment-plans-title">VIP Plans</h2> : null}
