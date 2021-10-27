@@ -1483,9 +1483,15 @@ table th {
     cursor: pointer; }
   .investment-container .inv-overview {
     margin-bottom: 15px;
-    display: flex; }
+    display: flex;
+    flex-wrap: wrap; }
     .investment-container .inv-overview > div {
       flex: 1; }
+    @media (max-width: 767px) {
+      .investment-container .inv-overview > div {
+        margin: 10px 0 0 0; }
+      .investment-container .inv-overview table {
+        width: 100%; } }
   .investment-container .withdraw-box {
     max-width: 340px;
     margin-left: auto; }
@@ -1506,6 +1512,20 @@ table th {
     min-width: 85px; }
   .investment-container .user-investment-table td:first-child {
     min-width: 180px; }
+
+.investment-buttons.invb-users > div {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%; }
+  .investment-buttons.invb-users > div button {
+    margin: 0 5px 5px 0;
+    flex: 0 1 24%;
+    padding: 3px; }
+
+@media (max-width: 767px) {
+  .investment-buttons.invb-users > div > button {
+    margin: 0 0 5px 0;
+    flex: 1 0 100%; } }
 
 .invstmnt-table-actions {
   display: flex;

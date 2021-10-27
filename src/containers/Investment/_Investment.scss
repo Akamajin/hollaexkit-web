@@ -34,8 +34,17 @@
 	.inv-overview {
 		margin-bottom: 15px;
 		display: flex;
+		flex-wrap: wrap;
 		>div{
 			flex: 1;
+		}
+		@media (max-width: 767px) {
+			>div {
+				margin: 10px 0 0 0;
+			}
+			table {
+				width: 100%;
+			}
 		}
 	}
 	.withdraw-box{
@@ -64,6 +73,24 @@
 	}
 	.user-investment-table td:first-child {
 		min-width: 180px;
+	}
+}
+.investment-buttons.invb-users {
+	>div {
+		display: flex;
+		flex-wrap: wrap;
+		width: 100%;
+		button {
+			margin: 0 5px 5px 0;
+			flex: 0 1 24%;
+			padding: 3px;
+		}
+	}
+}
+@media (max-width: 767px) {
+	.investment-buttons.invb-users > div > button {
+		margin: 0 0 5px 0;
+		flex: 1 0 100%;
 	}
 }
 .invstmnt-table-actions {

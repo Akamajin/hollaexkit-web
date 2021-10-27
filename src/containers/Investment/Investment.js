@@ -294,7 +294,7 @@ class Investment extends Component {
 									</tr>
 									<tr>
 										<td>Remained Capital</td>
-										<th>{mode === "decreasing" ? '$' + (totalCapital - deduction) : '-'}</th>
+										<th>{'$' + (totalCapital - deduction)}</th>
 										<th>{'$' + (grandCapital - grandDeduction)}</th>
 									</tr>
 									<tr>
@@ -326,7 +326,7 @@ class Investment extends Component {
 								</div> : <div className="insfcnt-balance text-center">Insufficient Balance</div> }
 							</div>
 						</div>
-						<div className="investment-buttons mb-1">
+						<div className="investment-buttons invb-users mb-1">
 							<div>
 								{buttonsForGroups.map(grp =><button className={`ant-btn ant-btn-secondary ${activeGroup === grp.groupId ? 'ant-btn-warning' : ''}`} key={grp.groupId} onClick={()=>this.setActiveGroup(grp.groupId)}>{grp.title}</button>)}
 							</div>
