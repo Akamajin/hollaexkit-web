@@ -1495,16 +1495,33 @@ table th {
   .investment-container .withdraw-box {
     max-width: 340px;
     margin-left: auto; }
-    .investment-container .withdraw-box button {
-      width: 35px;
-      margin-left: 5px; }
-    .investment-container .withdraw-box .amount-input {
-      flex: 1;
-      border-radius: 5px;
-      padding-left: 8px;
-      color: #202020; }
     .investment-container .withdraw-box .ant-radio-group {
       margin: 0 0 5px; }
+    .investment-container .withdraw-box .d-flex {
+      flex-wrap: wrap; }
+    .investment-container .withdraw-box .wf-row {
+      flex: 1 0 100%;
+      display: flex;
+      margin-bottom: 5px; }
+      .investment-container .withdraw-box .wf-row .amount-input {
+        flex: 1 1 100%;
+        border-radius: 5px;
+        padding-left: 8px;
+        color: #202020; }
+      .investment-container .withdraw-box .wf-row label {
+        margin: auto 5px auto 0;
+        flex: 1 1 200px; }
+    .investment-container .withdraw-box .wf-separator {
+      display: flex;
+      flex: 1;
+      margin: 8px 0; }
+      .investment-container .withdraw-box .wf-separator span {
+        flex: 1 1;
+        margin: auto 10px;
+        border-top: 1px solid #878787; }
+    .investment-container .withdraw-box button {
+      width: 35px;
+      margin: 10px auto 0; }
   .investment-container .user-investment-table tr {
     border-bottom: 1px solid #757575; }
   .investment-container .user-investment-table td, .investment-container .investment-table th {

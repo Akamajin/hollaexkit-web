@@ -50,18 +50,40 @@
 	.withdraw-box{
 		max-width: 340px;
 		margin-left: auto;
-		button {
-			width: 35px;
-			margin-left: 5px;
-		}
-		.amount-input {
-			flex: 1;
-			border-radius: 5px;
-			padding-left: 8px;
-			color: #202020;
-		}
 		.ant-radio-group {
 			margin: 0 0 5px;
+		}
+		.d-flex {
+			flex-wrap: wrap;
+		}
+		.wf-row {
+			flex: 1 0 100%;
+			display: flex;
+			margin-bottom: 5px;
+			.amount-input {
+				flex: 1 1 100%;
+				border-radius: 5px;
+				padding-left: 8px;
+				color: #202020;
+			}
+			label {
+				margin: auto 5px auto 0;
+				flex: 1 1 200px;
+			}
+		}
+		.wf-separator {
+			display: flex;
+			flex: 1;
+			margin: 8px 0;
+			span {
+				flex: 1 1;
+				margin: auto 10px;
+				border-top: 1px solid #878787;
+			}
+		}
+		button {
+			width: 35px;
+			margin: 10px auto 0;
 		}
 	}
 	.user-investment-table tr {

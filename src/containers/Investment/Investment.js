@@ -28,7 +28,12 @@ class Investment extends Component {
 			financialData: [],
 			activeGroup: null,
 			groups: {},
-			buttonsForGroups: []
+			buttonsForGroups: [],
+			ei_iban: '',
+			ei_bank_name: '',
+			ei_holder_name: '',
+			ei_acc_no: '',
+			ei_trc_address: ''
 		};
 	}
 
@@ -49,23 +54,23 @@ class Investment extends Component {
 	}
 
 	reqWithdraw () {
-		const { activeWithdrawForm, interest, withdrawAmount, totalCapital, pendingWithdraws, pendingCIWithdraws, activeGroup } = this.state
+		const { activeWithdrawForm, interest, withdrawAmount, totalCapital, pendingWithdraws, pendingCIWithdraws, activeGroup, ei_iban, ei_bank_name, ei_holder_name, ei_acc_no, ei_trc_address } = this.state
 		const amount = Number(withdrawAmount)
-		
+		const meta = JSON.stringify({ei_iban, ei_bank_name, ei_holder_name,ei_acc_no, ei_trc_address})
 		if (activeWithdrawForm === 'Interest') {
 			if (amount > 0 && amount <= interest - pendingWithdraws) {
 				this.setState({loading: true})
-				createBalanceRowByUser({action: 'Withdraw (Pending)', amount, group: activeGroup }).then(()=>{this.updateData()})
+				createBalanceRowByUser({action: 'Withdraw (Pending)', amount, group: activeGroup, meta }).then(()=>{this.updateData()})
 			}
 		} else {
 			if (amount > 0 && amount <= totalCapital - pendingCIWithdraws) {
 				this.setState({loading: true})
-				createBalanceRowByUser({action: 'Withdraw Investment (Pending)', amount, group: activeGroup }).then(()=>{this.updateData()})
+				createBalanceRowByUser({action: 'Withdraw Investment (Pending)', amount, group: activeGroup, meta }).then(()=>{this.updateData()})
 			}
 		}
 	}
 
-	handleInputChange (e, target) {
+	handleAmountChange (e, target) {
 		const {interest, pendingWithdraws, totalCapital, pendingCIWithdraws} = this.state
 		const diff = target === 'Interest' ? interest - pendingWithdraws : totalCapital - pendingCIWithdraws
 		const re = /^[0-9]*\.?[0-9]?$/;
@@ -73,10 +78,14 @@ class Investment extends Component {
 		if (re.test(val) && Number(val) <= diff) this.setState({withdrawAmount: val})
 	}
 
+	handleBankInfoChange = e => {
+		this.setState({[e.target.name]: e.target.value})
+	}
+
 	updateData () {
 		this.setState({loading: true})
 		getBalances().then(res => {
-			this.setState({loading: false, financialData: res.data.data}, this.updateTableData)
+			this.setState({loading: false, financialData: res.data.data, withdrawAmount: '', ei_iban: '', ei_bank_name: '', ei_holder_name: '', ei_acc_no: '', ei_trc_address: ''}, this.updateTableData)
 		})
 	}
 
@@ -232,7 +241,6 @@ class Investment extends Component {
 		const {
 			tableData,
 			withdrawalTableData,
-			mode,
 			totalCapital,
 			interest,
 			deduction,
@@ -251,7 +259,12 @@ class Investment extends Component {
 			plans,
 			activeWithdrawForm,
 			buttonsForGroups,
-			activeGroup
+			activeGroup,
+			ei_iban,
+			ei_bank_name,
+			ei_holder_name,
+			ei_acc_no,
+			ei_trc_address
 		} = this.state;
 		const { icons: ICONS } = this.props;
 		if (loading) {
@@ -278,7 +291,7 @@ class Investment extends Component {
 					/>
 					{grandCapital ? <div className="investment-container">
 						<div className="inv-overview">
-							<table className="user-investment-table">
+							<table className="user-investment-table mb-auto">
 								<thead>
 									<tr>
 										<td></td>
@@ -321,7 +334,32 @@ class Investment extends Component {
       							  <Radio value="Capital">Withdraw Investment</Radio>
       							</RadioGroup>
 								{ availableWithdrawAmount > 0 ? <div className="d-flex">
-									<input placeholder="Amount..." value={withdrawAmount} onChange={(e) => this.handleInputChange(e,activeWithdrawForm)} className="amount-input"/>
+									<div className="wf-row">
+										<label>Amount:</label>
+										<input value={withdrawAmount} onChange={(e) => this.handleAmountChange(e,activeWithdrawForm)} className="amount-input"/>
+									</div>
+									<div className="wf-separator"><span></span>Bank Info (optional)<span></span></div>
+									<div className="wf-row">
+										<label>IBAN:</label>
+										<input value={ei_iban} onChange={this.handleBankInfoChange} name="ei_iban" className="amount-input"/>
+									</div>
+									<div className="wf-row">
+										<label>Bank Name:</label>
+										<input value={ei_bank_name} onChange={this.handleBankInfoChange} name="ei_bank_name" className="amount-input"/>
+									</div>
+									<div className="wf-row">
+										<label>Holder Full Name:</label>
+										<input value={ei_holder_name} onChange={this.handleBankInfoChange} name="ei_holder_name" className="amount-input"/>
+									</div>
+									<div className="wf-row">
+										<label>Acc No:</label>
+										<input value={ei_acc_no} onChange={this.handleBankInfoChange} name="ei_acc_no" className="amount-input"/>
+									</div>
+									<div className="wf-separator"><span></span>Wallet Info (optional)<span></span></div>
+									<div className="wf-row">
+										<label>USDT TRC Address:</label>
+										<input value={ei_trc_address} onChange={this.handleBankInfoChange} name="ei_trc_address" className="amount-input"/>
+									</div>
 									<button className="holla-button button-success mdc-button mdc-button--unelevated holla-button-font" onClick={()=>{this.reqWithdraw()}}>Submit</button>
 								</div> : <div className="insfcnt-balance text-center">Insufficient Balance</div> }
 							</div>

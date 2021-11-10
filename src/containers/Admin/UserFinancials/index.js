@@ -34,7 +34,10 @@ class UserFinancials extends Component {
 			{
 				title: 'Action',
 				dataIndex: 'action',
-				key: 'action'
+				key: 'action',
+				render: (id,rowData) => (
+					<div>{rowData.action} {rowData.meta ? <span onClick={() => this.showBankData(rowData)} style={{cursor: "pointer"}}>[more info...]</span> : null}</div>
+				)
 			},
 			{ 
 				title: 'Amount',
@@ -59,7 +62,7 @@ class UserFinancials extends Component {
 				render: (endDate) => endDate ? <Moment format="YYYY/MM/DD">{endDate}</Moment> : ''
 			},
 			{
-				title: 'Delete',
+				title: '',
 				dataIndex: 'id',
 				key: 'data',
 				render: (id,rowData) => (
@@ -68,7 +71,7 @@ class UserFinancials extends Component {
 						{rowData.action === "Withdraw (Pending)" || rowData.action === "Withdraw Investment (Pending)" ? <Button type="primary" onClick={() => this.acceptWithdraw(id,rowData.action)} style={{backgroundColor: "#008e00"}} >Accept Withdraw</Button> : null }
 					</div>
 				)
-			},
+			}
 		];
 	};
 
@@ -144,6 +147,18 @@ class UserFinancials extends Component {
 				},
 			});
 		}
+	}
+
+	showBankData = (rowData) => {
+		const parsedMeta = JSON.parse(rowData.meta)
+		Modal.info({content: <div>
+			<h4 className="mb-4" style={{color: "#ffffff"}}>Bank and Wallet Info</h4>
+			<div><b>IBAN:</b> {parsedMeta.ei_iban}</div>
+			<div><b>Bank Name:</b> {parsedMeta.ei_bank_name}</div>
+			<div><b>Holder Full Name:</b> {parsedMeta.ei_holder_name}</div>
+			<div><b>Account Number:</b> {parsedMeta.ei_acc_no}</div>
+			<div><b>USDT TRC Address:</b> {parsedMeta.ei_trc_address}</div>
+		</div>});
 	}
 
 	acceptWithdraw = (id, action) => {
