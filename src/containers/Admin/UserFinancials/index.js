@@ -49,6 +49,11 @@ class UserFinancials extends Component {
 				dataIndex: 'interest_rate',
 				key: 'interest_rate'
 			},
+			{ 
+				title: 'Deduction Rate',
+				dataIndex: 'deduction_rate',
+				key: 'deduction_rate'
+			},
 			{
 				title: 'Date added',
 				dataIndex: 'created_at',
@@ -82,7 +87,10 @@ class UserFinancials extends Component {
 				formData[key] = moment(value).format();
 			} else {
 				formData[key] = value;
-				if (key === 'action' && value !== 'Capital Investment (Fixed)' && value !== 'Capital Investment (Decreasing)') delete formData.interest_rate;
+				if (key === 'action' && value !== 'Capital Investment (Fixed)' && value !== 'Capital Investment (Decreasing)') {
+					delete formData.interest_rate;
+					delete formData.deduction_rate;
+				}
 			}
 		} else {
 			delete formData[key];
@@ -102,6 +110,7 @@ class UserFinancials extends Component {
 				formData[key] = Number(formData[key])
 		if (formData.action === "Capital Investment (Fixed)" || formData.action === "Capital Investment (Decreasing)")
 			activeGroup = this.findLastGroup() + 1
+		if (formData.deduction_rate === "") formData.deduction_rate = formData.interest_rate
 		this.setState({activeGroup})
 		const data = { user_id: this.props.userData.id, group: activeGroup, ...formData }
 		newFinanacialAction(data).then(res=>{
@@ -197,7 +206,7 @@ class UserFinancials extends Component {
 		})
 		for (const groupId in groups){
 			const baseAction = groups[groupId].filter(gp=> gp.action === 'Capital Investment (Fixed)' || gp.action === 'Capital Investment (Decreasing)')[0]
-			buttonsForGroups.push({groupId: Number(groupId), title: `${groupId} - ${baseAction.action.split(' ')[2].replace('(','').replace(')','')} ($${baseAction.amount}@${baseAction.interest_rate}%)` })
+			buttonsForGroups.push({groupId: Number(groupId), title: `${groupId} - ${baseAction.action.split(' ')[2].replace('(','').replace(')','')} ($${baseAction.amount}@${baseAction.interest_rate}%${baseAction.deduction_rate && baseAction.interest_rate !== baseAction.deduction_rate ? ',' + baseAction.deduction_rate + '%' : ''})` })
 		}
 		activeGroup = Number(!activeGroup && buttonsForGroups[0] ? buttonsForGroups[0].groupId : activeGroup)
 

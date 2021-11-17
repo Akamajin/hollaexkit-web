@@ -61,6 +61,12 @@ export const Filters = ({
 						className={'adjacent-fields pl-2'}
 						placeholder="Interest Rate"
 					/> : null}
+					{formData.action === 'Capital Investment (Decreasing)' ? <FilterInput
+						onChange={onChange('deduction_rate')}
+						label={'Deduction Rate'}
+						className={'adjacent-fields pl-2'}
+						placeholder="Deduction Rate"
+					/> : null}
 					<FilterDate
 						onChange={onChange('created_at')}
 						label={'Start Date'}
