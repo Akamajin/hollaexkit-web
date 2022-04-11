@@ -458,15 +458,8 @@ class UserFinancials extends Component {
 							</tr>
 							<tr>
 								<td>Withdrawable Amount</td>
-								<th>
-									$
-									{interest -
-										withdrawedInterest +
-										(mode === 'decreasing' ? deduction : 0)}
-								</th>
-								<th>
-									${grandInterest - grandWithdrawedInterest + grandDeduction}
-								</th>
+								<th>${interest - withdrawedInterest}</th>
+								<th>${grandInterest - grandWithdrawedInterest}</th>
 							</tr>
 							<tr>
 								<td>Total Interests (Till Now)</td>

@@ -114,11 +114,10 @@ class Investment extends Component {
 			pendingWithdraws,
 			totalCapital,
 			pendingCIWithdraws,
-			deduction,
 		} = this.state;
 		const diff =
 			target === 'Interest'
-				? interest - pendingWithdraws + deduction
+				? interest - pendingWithdraws
 				: totalCapital - pendingCIWithdraws;
 		const re = /^[0-9]*\.?[0-9]?$/;
 		let val = e.target.value;
@@ -371,8 +370,8 @@ class Investment extends Component {
 			totalCapital,
 			interest,
 			deduction,
-			withdrawedInterest,
-			pendingWithdraws,
+			/*withdrawedInterest,
+			pendingWithdraws,*/
 			pendingCIWithdraws,
 			grandCapital,
 			grandDeduction,
@@ -408,7 +407,7 @@ class Investment extends Component {
 		});
 		const availableWithdrawAmount =
 			activeWithdrawForm === 'Interest'
-				? interest + deduction - withdrawedInterest - pendingWithdraws
+				? grandInterest - grandWithdrawedInterest - grandPendingWithdrawals
 				: totalCapital - deduction - pendingCIWithdraws;
 		return (
 			<div className="apply_rtl">
@@ -445,17 +444,15 @@ class Investment extends Component {
 											<td>Withdrawable Interest</td>
 											<th>
 												$
-												{interest +
-													deduction -
-													withdrawedInterest -
-													pendingWithdraws}
+												{grandInterest -
+													grandWithdrawedInterest -
+													grandPendingWithdrawals}
 											</th>
 											<th>
 												$
 												{grandInterest -
 													grandWithdrawedInterest -
-													grandPendingWithdrawals +
-													grandDeduction}
+													grandPendingWithdrawals}
 											</th>
 										</tr>
 										<tr>
@@ -577,10 +574,7 @@ class Investment extends Component {
 												activeGroup === grp.groupId ? 'ant-btn-warning' : ''
 											}`}
 											key={grp.groupId}
-											onClick={() => {
-												this.setActiveGroup(grp.groupId);
-												this.setState({ withdrawAmount: '' });
-											}}
+											onClick={() => this.setActiveGroup(grp.groupId)}
 										>
 											{grp.title}
 										</button>
